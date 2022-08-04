@@ -236,6 +236,7 @@ public class RestUtil {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(mediaType));
         headers.add("Accept", mediaType);
+        headers.add("Authorization", "Token yONlQjA1NzGwDZfb");
         return headers;
     }
 

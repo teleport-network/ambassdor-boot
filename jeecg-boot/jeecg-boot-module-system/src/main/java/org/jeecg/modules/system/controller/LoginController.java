@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,11 +18,14 @@ import org.jeecg.common.system.util.JwtUtil;
 import org.jeecg.common.system.vo.LoginUser;
 import org.jeecg.common.util.*;
 import org.jeecg.common.util.encryption.EncryptedString;
+import org.jeecg.modules.amuser.entity.AmbassadorUser;
+import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.jeecg.modules.base.service.BaseCommonService;
 import org.jeecg.modules.system.entity.SysDepart;
 import org.jeecg.modules.system.entity.SysRoleIndex;
 import org.jeecg.modules.system.entity.SysTenant;
 import org.jeecg.modules.system.entity.SysUser;
+import org.jeecg.modules.system.model.AmUserLoginModel;
 import org.jeecg.modules.system.model.SysLoginModel;
 import org.jeecg.modules.system.service.*;
 import org.jeecg.modules.system.service.impl.SysBaseApiImpl;
@@ -62,7 +66,31 @@ public class LoginController {
 	@Resource
 	private BaseCommonService baseCommonService;
 
+	@Autowired
+	private IAmbassadorUserService ambassadorUserService;
+
+	private static final String CONST_SALT = "RCGTeGiH";
 	private final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
+
+	@RequestMapping(value="/user-login", method = RequestMethod.POST)
+	public Result<?> userLogin(@RequestBody AmUserLoginModel msg) {
+		log.info("=====[userLogin]===={}", msg);
+		QueryWrapper<AmbassadorUser> getOne = new QueryWrapper<>();
+		getOne.eq("address", msg.getAddress());
+		AmbassadorUser find = ambassadorUserService.getOne(getOne);
+		if (find == null) {
+			return Result.error("User not found.");
+		}
+		String passwordEncode = PasswordUtil.encrypt(msg.getAddress(), find.getUsername(), CONST_SALT);
+		String token = JwtUtil.sign(find.getEmail(), passwordEncode);
+		redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token);
+		redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME*2/1000);
+
+		JSONObject obj = new JSONObject();
+		obj.put("token", token);
+		obj.put("userInfo", find);
+		return Result.OK("success", obj);
+	}
 
 	@ApiOperation("登录接口")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

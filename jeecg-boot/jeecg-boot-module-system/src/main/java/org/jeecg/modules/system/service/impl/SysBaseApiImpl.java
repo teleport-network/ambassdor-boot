@@ -26,6 +26,8 @@ import org.jeecg.common.util.SysAnnmentTypeEnum;
 import org.jeecg.common.util.YouBianCodeUtil;
 import org.jeecg.common.util.dynamic.db.FreemarkerParseFactory;
 import org.jeecg.common.util.oConvertUtils;
+import org.jeecg.modules.amuser.entity.AmbassadorUser;
+import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.jeecg.modules.message.entity.SysMessageTemplate;
 import org.jeecg.modules.message.handle.impl.DdSendMsgHandle;
 import org.jeecg.modules.message.handle.impl.EmailSendMsgHandle;
@@ -102,6 +104,9 @@ public class SysBaseApiImpl implements ISysBaseAPI {
 	@Autowired
 	private ISysUserService sysUserService;
 
+	@Autowired
+	private IAmbassadorUserService ambassadorUserService;
+
 	@Override
 	//@SensitiveDecode
 	public LoginUser getUserByName(String username) {
@@ -111,6 +116,20 @@ public class SysBaseApiImpl implements ISysBaseAPI {
 		}
 		//update-end-author:taoyan date:2022-6-6 for: VUEN-1276 【v3流程图】测试bug 1、通过我发起的流程或者流程实例，查看历史，流程图预览问题
 		LoginUser user = sysUserService.getEncodeUserInfo(username);
+		if (user == null) {
+			user = new LoginUser();
+			QueryWrapper<AmbassadorUser> getByAddress = new QueryWrapper();
+			getByAddress.eq("email", username);
+			AmbassadorUser amUser = ambassadorUserService.getOne(getByAddress);
+			if (amUser == null) {
+				return null;
+			}
+			user.setId(amUser.getId());
+			user.setUsername(amUser.getUsername());
+			user.setPassword(amUser.getUsername());
+			user.setDelFlag(0);
+			user.setStatus(1);
+		}
 
 		//相同类中方法间调用时脱敏解密 Aop会失效，获取用户信息太重要，此处采用原生解密方法，不采用@SensitiveDecodeAble注解方式
 		try {
