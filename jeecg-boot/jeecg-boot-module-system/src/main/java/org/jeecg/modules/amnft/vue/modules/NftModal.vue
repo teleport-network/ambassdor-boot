@@ -12,23 +12,13 @@
       <a-form-model ref="form" :model="model" :rules="validatorRules">
         <a-row>
           <a-col :span="24">
-            <a-form-model-item label="quest key" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="questKey">
-              <a-input v-model="model.questKey" placeholder="请输入quest key" disabled></a-input>
+            <a-form-model-item label="image" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="image">
+              <a-input v-model="model.image" placeholder="请输入image" ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="title" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="title">
-              <a-input v-model="model.title" placeholder="请输入title" ></a-input>
-            </a-form-model-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-model-item label="quest link" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="url">
-              <a-input v-model="model.url" placeholder="请输入quest link" ></a-input>
-            </a-form-model-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-model-item label="rewards points" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="rewards">
-              <a-input-number v-model="model.rewards" placeholder="请输入rewards points" style="width: 100%" />
+            <a-form-model-item label="name" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="name">
+              <a-input v-model="model.name" placeholder="请输入name" ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
@@ -37,33 +27,33 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="image" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="image">
-              <j-image-upload isMultiple  v-model="model.image" ></j-image-upload>
+            <a-form-model-item label="desc" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="description">
+              <a-input v-model="model.description" placeholder="请输入desc" ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="quest date" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="issueDate">
-              <j-date placeholder="请选择quest date" v-model="model.issueDate" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
+            <a-form-model-item label="address" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="address">
+              <a-input v-model="model.address" placeholder="请输入address" ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="queat duration" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="deadline">
-              <j-date placeholder="请选择queat duration" v-model="model.deadline" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
+            <a-form-model-item label="total" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="total">
+              <a-input-number v-model="model.total" placeholder="请输入total" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="last sync time" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="syncTime">
-              <j-date placeholder="请选择last sync time" v-model="model.syncTime" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
+            <a-form-model-item label="inventory" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="inventory">
+              <a-input-number v-model="model.inventory" placeholder="请输入inventory" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="create time in gleam" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="gleamCreateAt">
-              <j-date placeholder="请选择create time in gleam" v-model="model.gleamCreateAt" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
+            <a-form-model-item label="delivered quantity" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="delivered">
+              <a-input-number v-model="model.delivered" placeholder="请输入delivered quantity" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="fraud_type" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="fraudType">
-              <a-input v-model="model.fraudType" placeholder="请输入fraud_type" ></a-input>
+            <a-form-model-item label="reuest quantity" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="txRequestNum">
+              <a-input-number v-model="model.txRequestNum" placeholder="请输入reuest quantity" style="width: 100%" />
             </a-form-model-item>
           </a-col>
         </a-row>
@@ -78,7 +68,7 @@
   import { validateDuplicateValue } from '@/utils/util'
 
   export default {
-    name: "QuestModal",
+    name: "NftModal",
     components: { 
     },
     data () {
@@ -101,8 +91,8 @@
         validatorRules: {
         },
         url: {
-          add: "/amquest/quest/add",
-          edit: "/amquest/quest/edit",
+          add: "/amnft/nft/add",
+          edit: "/amnft/nft/edit",
         }
      
       }

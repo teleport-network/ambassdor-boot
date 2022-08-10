@@ -4,12 +4,12 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.jeecg.common.aspect.annotation.Dict;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.jeecgframework.poi.excel.annotation.Excel;
 import java.util.Date;
-import org.jeecg.common.aspect.annotation.Dict;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.UnsupportedEncodingException;
@@ -17,12 +17,12 @@ import java.io.UnsupportedEncodingException;
 /**
  * @Description: quest def
  * @Author: jeecg-boot
- * @Date:   2022-08-09
+ * @Date:   2022-08-10
  * @Version: V1.0
  */
-@ApiModel(value="action_def对象", description="quest def")
 @Data
 @TableName("action_def")
+@ApiModel(value="action_def对象", description="quest def")
 public class ActionDef implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -57,6 +57,10 @@ public class ActionDef implements Serializable {
 	@Excel(name = "worth", width = 15)
     @ApiModelProperty(value = "worth")
     private java.lang.Integer worth;
+	/**reward*/
+	@Excel(name = "reward", width = 15)
+    @ApiModelProperty(value = "reward")
+    private java.lang.Integer reward;
 	/**mandatory*/
 	@Excel(name = "mandatory", width = 15)
     @ApiModelProperty(value = "mandatory")

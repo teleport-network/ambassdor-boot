@@ -16,7 +16,7 @@ import java.util.Collection;
 /**
  * @Description: quest
  * @Author: jeecg-boot
- * @Date:   2022-08-09
+ * @Date:   2022-08-10
  * @Version: V1.0
  */
 @Service
@@ -27,37 +27,6 @@ public class QuestServiceImpl extends ServiceImpl<QuestMapper, Quest> implements
 	@Autowired
 	private ActionDefMapper actionDefMapper;
 	
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void saveMain(Quest quest, List<ActionDef> actionDefList) {
-		questMapper.insert(quest);
-		if(actionDefList!=null && actionDefList.size()>0) {
-			for(ActionDef entity:actionDefList) {
-				//外键设置
-				entity.setQuestFk(quest.getId());
-				actionDefMapper.insert(entity);
-			}
-		}
-	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void updateMain(Quest quest,List<ActionDef> actionDefList) {
-		questMapper.updateById(quest);
-		
-		//1.先删除子表数据
-		actionDefMapper.deleteByMainId(quest.getId());
-		
-		//2.子表数据重新插入
-		if(actionDefList!=null && actionDefList.size()>0) {
-			for(ActionDef entity:actionDefList) {
-				//外键设置
-				entity.setQuestFk(quest.getId());
-				actionDefMapper.insert(entity);
-			}
-		}
-	}
-
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void delMain(String id) {

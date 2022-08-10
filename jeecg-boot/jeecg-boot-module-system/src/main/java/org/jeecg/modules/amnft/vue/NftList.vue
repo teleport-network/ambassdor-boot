@@ -12,7 +12,7 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('quest')">导出</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('nft')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>
@@ -82,54 +82,49 @@
     </div>
 
     <a-tabs defaultActiveKey="1">
-      <a-tab-pane tab="quest def" key="1" >
-        <ActionDefList :mainId="actionDefMainId" />
+      <a-tab-pane tab="mint history" key="1" >
+        <MintHistoryList :mainId="mintHistoryMainId" />
+      </a-tab-pane>
+      <a-tab-pane tab="delivered history" key="2" forceRender>
+        <DeliveredHistoryList :mainId="deliveredHistoryMainId" />
       </a-tab-pane>
     </a-tabs>
 
-    <quest-modal ref="modalForm" @ok="modalFormOk"></quest-modal>
+    <nft-modal ref="modalForm" @ok="modalFormOk"></nft-modal>
   </a-card>
 </template>
 
 <script>
 
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import QuestModal from './modules/QuestModal'
+  import NftModal from './modules/NftModal'
   import { getAction } from '@/api/manage'
-  import ActionDefList from './ActionDefList'
+  import MintHistoryList from './MintHistoryList'
+  import DeliveredHistoryList from './DeliveredHistoryList'
   import '@/assets/less/TableExpand.less'
 
   export default {
-    name: "QuestList",
+    name: "NftList",
     mixins:[JeecgListMixin],
     components: {
-      ActionDefList,
-      QuestModal
+      MintHistoryList,
+      DeliveredHistoryList,
+      NftModal
     },
     data () {
       return {
-        description: 'quest管理页面',
+        description: 'nft管理页面',
         // 表头
         columns: [
           {
-            title:'quest key',
+            title:'image',
             align:"center",
-            dataIndex: 'questKey'
+            dataIndex: 'image'
           },
           {
-            title:'title',
+            title:'name',
             align:"center",
-            dataIndex: 'title'
-          },
-          {
-            title:'quest link',
-            align:"center",
-            dataIndex: 'url'
-          },
-          {
-            title:'rewards points',
-            align:"center",
-            dataIndex: 'rewards'
+            dataIndex: 'name'
           },
           {
             title:'type',
@@ -137,35 +132,34 @@
             dataIndex: 'type'
           },
           {
-            title:'image',
+            title:'desc',
             align:"center",
-            dataIndex: 'image',
-            scopedSlots: {customRender: 'imgSlot'}
+            dataIndex: 'description'
           },
           {
-            title:'quest date',
+            title:'address',
             align:"center",
-            dataIndex: 'issueDate'
+            dataIndex: 'address'
           },
           {
-            title:'queat duration',
+            title:'total',
             align:"center",
-            dataIndex: 'deadline'
+            dataIndex: 'total'
           },
           {
-            title:'last sync time',
+            title:'inventory',
             align:"center",
-            dataIndex: 'syncTime'
+            dataIndex: 'inventory'
           },
           {
-            title:'create time in gleam',
+            title:'delivered quantity',
             align:"center",
-            dataIndex: 'gleamCreateAt'
+            dataIndex: 'delivered'
           },
           {
-            title:'fraud_type',
+            title:'reuest quantity',
             align:"center",
-            dataIndex: 'fraudType'
+            dataIndex: 'txRequestNum'
           },
           {
             title: '操作',
@@ -177,11 +171,11 @@
           }
         ],
         url: {
-          list: "/amquest/quest/list",
-          delete: "/amquest/quest/delete",
-          deleteBatch: "/amquest/quest/deleteBatch",
-          exportXlsUrl: "/amquest/quest/exportXls",
-          importExcelUrl: "amquest/quest/importExcel",
+          list: "/amnft/nft/list",
+          delete: "/amnft/nft/delete",
+          deleteBatch: "/amnft/nft/deleteBatch",
+          exportXlsUrl: "/amnft/nft/exportXls",
+          importExcelUrl: "amnft/nft/importExcel",
         },
         dictOptions:{
         },
@@ -199,7 +193,8 @@
         },
         selectedMainId:'',
         superFieldList:[],
-        actionDefMainId: '',
+        mintHistoryMainId: '',
+        deliveredHistoryMainId: '',
       }
     },
     created() {
@@ -231,7 +226,8 @@
         this.selectedMainId=selectedRowKeys[0]
         this.selectedRowKeys = selectedRowKeys;
         this.selectionRows = selectionRows;
-        this.actionDefMainId = selectionRows[0]['id']
+        this.mintHistoryMainId = selectionRows[0]['id']
+        this.deliveredHistoryMainId = selectionRows[0]['id']
       },
       loadData(arg) {
         if(!this.url.list){
@@ -258,17 +254,15 @@
       },
       getSuperFieldList(){
         let fieldList=[];
-        fieldList.push({type:'string',value:'questKey',text:'quest key',dictCode:''})
-        fieldList.push({type:'string',value:'title',text:'title',dictCode:''})
-        fieldList.push({type:'string',value:'url',text:'quest link',dictCode:''})
-        fieldList.push({type:'int',value:'rewards',text:'rewards points',dictCode:''})
-        fieldList.push({type:'string',value:'type',text:'type',dictCode:''})
         fieldList.push({type:'string',value:'image',text:'image',dictCode:''})
-        fieldList.push({type:'datetime',value:'issueDate',text:'quest date'})
-        fieldList.push({type:'datetime',value:'deadline',text:'queat duration'})
-        fieldList.push({type:'datetime',value:'syncTime',text:'last sync time'})
-        fieldList.push({type:'datetime',value:'gleamCreateAt',text:'create time in gleam'})
-        fieldList.push({type:'string',value:'fraudType',text:'fraud_type',dictCode:''})
+        fieldList.push({type:'string',value:'name',text:'name',dictCode:''})
+        fieldList.push({type:'string',value:'type',text:'type',dictCode:''})
+        fieldList.push({type:'Text',value:'description',text:'desc',dictCode:''})
+        fieldList.push({type:'string',value:'address',text:'address',dictCode:''})
+        fieldList.push({type:'int',value:'total',text:'total',dictCode:''})
+        fieldList.push({type:'int',value:'inventory',text:'inventory',dictCode:''})
+        fieldList.push({type:'int',value:'delivered',text:'delivered quantity',dictCode:''})
+        fieldList.push({type:'int',value:'txRequestNum',text:'reuest quantity',dictCode:''})
         this.superFieldList = fieldList
       }
     }

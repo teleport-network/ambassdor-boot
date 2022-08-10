@@ -40,31 +40,35 @@
     </BasicTable>
    <!--子表表格tab-->
     <a-tabs defaultActiveKey="1">
-        <a-tab-pane tab="quest def" key="1" >
-           <ActionDefList/>
+        <a-tab-pane tab="mint history" key="1" >
+           <MintHistoryList/>
+        </a-tab-pane>
+        <a-tab-pane tab="delivered history" key="2" forceRender>
+           <DeliveredHistoryList/>
         </a-tab-pane>
      </a-tabs>
     <!-- 表单区域 -->
-    <QuestModal @register="registerModal" @success="handleSuccess"></QuestModal>
+    <NftModal @register="registerModal" @success="handleSuccess"></NftModal>
   </div>
 </template>
 
-<script lang="ts" name="amquest-quest" setup>
+<script lang="ts" name="amnft-nft" setup>
   import {ref, computed, unref,provide} from 'vue';
   import {BasicTable, useTable, TableAction} from '/@/components/Table';
   import { useListPage } from '/@/hooks/system/useListPage'
   import {useModal} from '/@/components/Modal';
-  import QuestModal from './components/QuestModal.vue'
-  import ActionDefList from './ActionDefList.vue'
-  import {columns, searchFormSchema} from './Quest.data';
-  import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './Quest.api';
+  import NftModal from './components/NftModal.vue'
+  import MintHistoryList from './MintHistoryList.vue'
+  import DeliveredHistoryList from './DeliveredHistoryList.vue'
+  import {columns, searchFormSchema} from './Nft.data';
+  import {list, deleteOne, batchDelete, getImportUrl,getExportUrl} from './Nft.api';
   import {downloadFile} from '/@/utils/common/renderUtils';
   //注册model
   const [registerModal, {openModal}] = useModal();
    //注册table数据
   const { prefixCls,tableContext,onExportXls,onImportXls } = useListPage({
       tableProps:{
-           title: 'quest',
+           title: 'nft',
            api: list,
            columns,
            canResize:false,
@@ -87,7 +91,7 @@
            }
         },
         exportConfig: {
-            name:"quest",
+            name:"nft",
             url: getExportUrl,
         },
         importConfig: {

@@ -2,7 +2,6 @@ import {BasicColumn} from '/@/components/Table';
 import {FormSchema} from '/@/components/Table';
 import { rules} from '/@/utils/helper/validator';
 import { render } from '/@/utils/common/renderUtils';
-import {JVxeTypes,JVxeColumn} from '/@/components/jeecg/JVxeTable/types'
 //列表数据
 export const columns: BasicColumn[] = [
    {
@@ -65,13 +64,14 @@ export const columns: BasicColumn[] = [
 //查询数据
 export const searchFormSchema: FormSchema[] = [
 ];
+
 //表单数据
 export const formSchema: FormSchema[] = [
   {
     label: 'quest key',
     field: 'questKey',
     component: 'Input',
-    dynamicDisabled:true
+    dynamicDisabled:true,
   },
   {
     label: 'title',
@@ -149,7 +149,7 @@ export const formSchema: FormSchema[] = [
 	  show: false
 	},
 ];
-//子表单数据
+
 //子表列表数据
 export const actionDefColumns: BasicColumn[] = [
    {
@@ -161,6 +161,11 @@ export const actionDefColumns: BasicColumn[] = [
     title: 'worth',
     align:"center",
     dataIndex: 'worth'
+   },
+   {
+    title: 'reward',
+    align:"center",
+    dataIndex: 'reward'
    },
    {
     title: 'mandatory',
@@ -238,142 +243,103 @@ export const actionDefColumns: BasicColumn[] = [
     dataIndex: 'actionsRequired'
    },
 ];
-//子表表格配置
-export const actionDefJVxeColumns: JVxeColumn[] = [
-    {
-      title: 'type',
-      key: 'type',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'worth',
-      key: 'worth',
-      type: JVxeTypes.inputNumber,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'mandatory',
-      key: 'mandatory',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config1',
-      key: 'config1',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config2',
-      key: 'config2',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config3',
-      key: 'config3',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config4',
-      key: 'config4',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config5',
-      key: 'config5',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config6',
-      key: 'config6',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config7',
-      key: 'config7',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config8',
-      key: 'config8',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config9',
-      key: 'config9',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'original',
-      key: 'original',
-      type: JVxeTypes.textarea,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'image',
-      key: 'image',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'paid',
-      key: 'paid',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'config_toggle',
-      key: 'configToggle',
-      type: JVxeTypes.input,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-    {
-      title: 'actions_required',
-      key: 'actionsRequired',
-      type: JVxeTypes.inputNumber,
-      width:"200px",
-      placeholder: '请输入${title}',
-      defaultValue:'',
-    },
-  ]
+//子表表单数据
+export const actionDefFormSchema: FormSchema[] = [
+  // TODO 子表隐藏字段，目前写死为ID
+  {
+    label: '',
+    field: 'id',
+    component: 'Input',
+    show: false
+  },
+  {
+    label: 'type',
+    field: 'type',
+    component: 'Input',
+  },
+  {
+    label: 'worth',
+    field: 'worth',
+    component: 'InputNumber',
+  },
+  {
+    label: 'reward',
+    field: 'reward',
+    component: 'InputNumber',
+  },
+  {
+    label: 'mandatory',
+    field: 'mandatory',
+    component: 'Input',
+  },
+  {
+    label: 'config1',
+    field: 'config1',
+    component: 'Input',
+  },
+  {
+    label: 'config2',
+    field: 'config2',
+    component: 'Input',
+  },
+  {
+    label: 'config3',
+    field: 'config3',
+    component: 'Input',
+  },
+  {
+    label: 'config4',
+    field: 'config4',
+    component: 'Input',
+  },
+  {
+    label: 'config5',
+    field: 'config5',
+    component: 'Input',
+  },
+  {
+    label: 'config6',
+    field: 'config6',
+    component: 'Input',
+  },
+  {
+    label: 'config7',
+    field: 'config7',
+    component: 'Input',
+  },
+  {
+    label: 'config8',
+    field: 'config8',
+    component: 'Input',
+  },
+  {
+    label: 'config9',
+    field: 'config9',
+    component: 'Input',
+  },
+  {
+    label: 'original',
+    field: 'original',
+    component: 'InputTextArea',
+  },
+  {
+    label: 'image',
+    field: 'image',
+    component: 'Input',
+  },
+  {
+    label: 'paid',
+    field: 'paid',
+    component: 'Input',
+  },
+  {
+    label: 'config_toggle',
+    field: 'configToggle',
+    component: 'Input',
+  },
+  {
+    label: 'actions_required',
+    field: 'actionsRequired',
+    component: 'InputNumber',
+  },
+];

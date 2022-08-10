@@ -8,8 +8,8 @@
     import {ref, computed, unref} from 'vue';
     import {BasicModal, useModalInner} from '/@/components/Modal';
     import {BasicForm, useForm} from '/@/components/Form/index';
-    import {formSchema} from '../Quest.data';
-    import {saveOrUpdate} from '../Quest.api';
+    import {formSchema} from '../Nft.data';
+    import {saveOrUpdate} from '../Nft.api';
     // Emits声明
     const emit = defineEmits(['register','success']);
     const isUpdate = ref(true);

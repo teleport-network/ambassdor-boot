@@ -12,7 +12,7 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator" v-if="mainId">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('quest def')">导出</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('delivered history')">导出</a-button>
       <a-upload
         name="file"
         :showUploadList="false"
@@ -81,19 +81,19 @@
       </a-table>
     </div>
 
-    <actionDef-modal ref="modalForm" @ok="modalFormOk" :mainId="mainId"></actionDef-modal>
+    <deliveredHistory-modal ref="modalForm" @ok="modalFormOk" :mainId="mainId"></deliveredHistory-modal>
   </a-card>
 </template>
 
 <script>
 
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import ActionDefModal from './modules/ActionDefModal'
+  import DeliveredHistoryModal from './modules/DeliveredHistoryModal'
 
   export default {
-    name: "ActionDefList",
+    name: "DeliveredHistoryList",
     mixins:[JeecgListMixin],
-    components: { ActionDefModal },
+    components: { DeliveredHistoryModal },
     props:{
       mainId:{
         type:String,
@@ -108,7 +108,7 @@
           if(!this.mainId){
             this.clearList()
           }else{
-            this.queryParam['questFk'] = val
+            this.queryParam['nftId'] = val
             this.loadData(1);
           }
         }
@@ -116,7 +116,7 @@
     },
     data () {
       return {
-        description: 'quest管理页面',
+        description: 'nft管理页面',
         disableMixinCreated:true,
         // 表头
         columns: [
@@ -131,94 +131,29 @@
             }
           },
           {
-            title:'type',
+            title:'delivered time',
             align:"center",
-            dataIndex: 'type'
+            dataIndex: 'deliveredTime'
           },
           {
-            title:'worth',
+            title:'from',
             align:"center",
-            dataIndex: 'worth'
+            dataIndex: 'fromAddress'
           },
           {
-            title:'reward',
+            title:'to',
             align:"center",
-            dataIndex: 'reward'
+            dataIndex: 'toAddress'
           },
           {
-            title:'mandatory',
+            title:'tx hash',
             align:"center",
-            dataIndex: 'mandatory'
+            dataIndex: 'txHash'
           },
           {
-            title:'config1',
+            title:'url',
             align:"center",
-            dataIndex: 'config1'
-          },
-          {
-            title:'config2',
-            align:"center",
-            dataIndex: 'config2'
-          },
-          {
-            title:'config3',
-            align:"center",
-            dataIndex: 'config3'
-          },
-          {
-            title:'config4',
-            align:"center",
-            dataIndex: 'config4'
-          },
-          {
-            title:'config5',
-            align:"center",
-            dataIndex: 'config5'
-          },
-          {
-            title:'config6',
-            align:"center",
-            dataIndex: 'config6'
-          },
-          {
-            title:'config7',
-            align:"center",
-            dataIndex: 'config7'
-          },
-          {
-            title:'config8',
-            align:"center",
-            dataIndex: 'config8'
-          },
-          {
-            title:'config9',
-            align:"center",
-            dataIndex: 'config9'
-          },
-          {
-            title:'original',
-            align:"center",
-            dataIndex: 'original'
-          },
-          {
-            title:'image',
-            align:"center",
-            dataIndex: 'image'
-          },
-          {
-            title:'paid',
-            align:"center",
-            dataIndex: 'paid'
-          },
-          {
-            title:'config_toggle',
-            align:"center",
-            dataIndex: 'configToggle'
-          },
-          {
-            title:'actions_required',
-            align:"center",
-            dataIndex: 'actionsRequired'
+            dataIndex: 'scanUrl'
           },
           {
             title: '操作',
@@ -230,11 +165,11 @@
           }
         ],
         url: {
-          list: "/amquest/quest/listActionDefByMainId",
-          delete: "/amquest/quest/deleteActionDef",
-          deleteBatch: "/amquest/quest/deleteBatchActionDef",
-          exportXlsUrl: "/amquest/quest/exportActionDef",
-          importUrl: "/amquest/quest/importActionDef",
+          list: "/amnft/nft/listDeliveredHistoryByMainId",
+          delete: "/amnft/nft/deleteDeliveredHistory",
+          deleteBatch: "/amnft/nft/deleteBatchDeliveredHistory",
+          exportXlsUrl: "/amnft/nft/exportDeliveredHistory",
+          importUrl: "/amnft/nft/importDeliveredHistory",
         },
         dictOptions:{
         }

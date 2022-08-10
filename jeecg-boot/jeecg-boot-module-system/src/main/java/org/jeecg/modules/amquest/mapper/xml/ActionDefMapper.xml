@@ -6,11 +6,13 @@
 		DELETE 
 		FROM  action_def 
 		WHERE
-			 quest_fk = #{mainId} 	</delete>
+			 quest_fk = #{mainId} 
+	</delete>
 	
 	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.amquest.entity.ActionDef">
 		SELECT * 
 		FROM  action_def
 		WHERE
-			 quest_fk = #{mainId} 	</select>
+			 quest_fk = #{mainId} 
+	</select>
 </mapper>

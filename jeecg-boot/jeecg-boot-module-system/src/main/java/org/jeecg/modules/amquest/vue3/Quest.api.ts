@@ -11,7 +11,11 @@ enum Api {
   deleteBatch = '/amquest/quest/deleteBatch',
   importExcel = '/amquest/quest/importExcel',
   exportXls = '/amquest/quest/exportXls',
-  actionDefList = '/amquest/quest/queryActionDefByMainId',
+  actionDefList = '/amquest/quest/listActionDefByMainId',
+  actionDefSave='/amquest/quest/addActionDef',
+  actionDefEdit='/amquest/quest/editActionDef',
+  actionDefDelete = '/amquest/quest/deleteActionDef',
+  actionDefDeleteBatch = '/amquest/quest/deleteBatchActionDef',
 }
 /**
  * 导出api
@@ -23,11 +27,6 @@ export const getExportUrl = Api.exportXls;
  * 导入api
  */
 export const getImportUrl = Api.importExcel;
-/**
- * 子表单查询接口
- * @param params
- */
-export const queryActionDef = Api.actionDefList
 /**
  * 列表接口
  * @param params
@@ -70,8 +69,57 @@ export const saveOrUpdate = (params, isUpdate) => {
   return defHttp.post({url: url, params});
 }
 /**
- * 子表列表接口
+ * 列表接口
  * @param params
  */
-export const actionDefList = (params) =>
-  defHttp.get({url: Api.actionDefList, params},{isTransformResponse:false});
+export const actionDefList = (params) => {
+  if(params['questFk']){
+    return defHttp.get({url: Api.actionDefList, params});
+  }
+  return Promise.resolve({});
+}
+
+
+/**
+ * 删除单个
+ */
+export const actionDefDelete = (params,handleSuccess) => {
+  return defHttp.delete({url: Api.actionDefDelete, params}, {joinParamsToUrl: true}).then(() => {
+    handleSuccess();
+  });
+}
+/**
+ * 批量删除
+ * @param params
+ */
+export const actionDefDeleteBatch = (params, handleSuccess) => {
+  createConfirm({
+    iconType: 'warning',
+    title: '确认删除',
+    content: '是否删除选中数据',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: () => {
+      return defHttp.delete({url: Api.actionDefDeleteBatch, data: params}, {joinParamsToUrl: true}).then(() => {
+        handleSuccess();
+      });
+    }
+  });
+}
+/**
+ * 保存或者更新
+ * @param params
+ */
+export const  actionDefSaveOrUpdate = (params, isUpdate) => {
+  let url = isUpdate ? Api.actionDefEdit : Api.actionDefSave;
+  return defHttp.post({url: url, params});
+}
+/**
+ * 导入
+ */
+export const actionDefImportUrl = '/amquest/quest/importActionDef'
+
+/**
+ * 导出
+ */
+export const actionDefExportXlsUrl = '/amquest/quest/exportActionDef'

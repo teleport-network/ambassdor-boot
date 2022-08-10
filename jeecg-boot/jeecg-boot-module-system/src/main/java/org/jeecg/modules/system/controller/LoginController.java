@@ -76,7 +76,7 @@ public class LoginController {
 	public Result<?> userLogin(@RequestBody AmUserLoginModel msg) {
 		log.info("=====[userLogin]===={}", msg);
 		QueryWrapper<AmbassadorUser> getOne = new QueryWrapper<>();
-		getOne.eq("address", msg.getAddress());
+		getOne.eq("lower(address)", msg.getAddress().toLowerCase());
 		AmbassadorUser find = ambassadorUserService.getOne(getOne);
 		if (find == null) {
 			return Result.error("User not found.");

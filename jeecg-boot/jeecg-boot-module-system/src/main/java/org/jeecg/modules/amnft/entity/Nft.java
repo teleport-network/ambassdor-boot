@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @Description: nft
  * @Author: jeecg-boot
- * @Date:   2022-08-01
+ * @Date:   2022-08-10
  * @Version: V1.0
  */
 @Data
@@ -85,33 +85,4 @@ public class Nft implements Serializable {
     @Excel(name = "reuest quantity", width = 15)
     @ApiModelProperty(value = "reuest quantity")
     private java.lang.Integer txRequestNum;
-	/**mint*/
-    @Excel(name = "mint", width = 15)
-    private transient java.lang.String mintHistoryString;
-
-    private byte[] mintHistory;
-
-    public byte[] getMintHistory(){
-        if(mintHistoryString==null){
-            return null;
-        }
-        try {
-            return mintHistoryString.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String getMintHistoryString(){
-        if(mintHistory==null || mintHistory.length==0){
-            return "";
-        }
-        try {
-            return new String(mintHistory,"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 }
