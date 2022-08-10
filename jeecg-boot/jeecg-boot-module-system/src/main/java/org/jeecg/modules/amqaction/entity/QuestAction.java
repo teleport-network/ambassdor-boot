@@ -1,8 +1,9 @@
-package org.jeecg.modules.amquest.entity;
+package org.jeecg.modules.amqaction.entity;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,17 +14,21 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 import org.jeecg.common.aspect.annotation.Dict;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * @Description: quest
+ * @Description: user action in quest
  * @Author: jeecg-boot
- * @Date:   2022-08-09
+ * @Date:   2022-08-08
  * @Version: V1.0
  */
-@ApiModel(value="quest对象", description="quest")
 @Data
-@TableName("quest")
-public class Quest implements Serializable {
+@TableName("quest_action")
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(value="quest_action对象", description="user action in quest")
+public class QuestAction implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**主键*/
@@ -53,52 +58,38 @@ public class Quest implements Serializable {
 	@Excel(name = "quest key", width = 15)
     @ApiModelProperty(value = "quest key")
     private java.lang.String questKey;
-	/**title*/
-	@Excel(name = "title", width = 15)
-    @ApiModelProperty(value = "title")
-    private java.lang.String title;
-	/**quest link*/
-	@Excel(name = "quest link", width = 15)
-    @ApiModelProperty(value = "quest link")
-    private java.lang.String url;
-	/**rewards points*/
-	@Excel(name = "rewards points", width = 15)
-    @ApiModelProperty(value = "rewards points")
-    private java.lang.Integer rewards;
-	/**type*/
-	@Excel(name = "type", width = 15)
-    @ApiModelProperty(value = "type")
-    private java.lang.String type;
-	/**image*/
-	@Excel(name = "image", width = 15)
-    @ApiModelProperty(value = "image")
-    private java.lang.String image;
-	/**quest date*/
-	@Excel(name = "quest date", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "quest date")
-    private java.util.Date issueDate;
-	/**queat duration*/
-	@Excel(name = "queat duration", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "queat duration")
-    private java.util.Date deadline;
+	/**quest url*/
+	@Excel(name = "quest url", width = 15)
+    @ApiModelProperty(value = "quest url")
+    private java.lang.String landingUrl;
+	/**name*/
+	@Excel(name = "name", width = 15)
+    @ApiModelProperty(value = "name")
+    private java.lang.String name;
+	/**email*/
+	@Excel(name = "email", width = 15)
+    @ApiModelProperty(value = "email")
+    private java.lang.String email;
+	/**status*/
+	@Excel(name = "status", width = 15)
+    @ApiModelProperty(value = "status")
+    private java.lang.String status;
+	/**action id*/
+	@Excel(name = "action id", width = 15)
+    @ApiModelProperty(value = "action id")
+    private java.lang.Integer actionId;
+	/**action type*/
+	@Excel(name = "action type", width = 15)
+    @ApiModelProperty(value = "action type")
+    private java.lang.String actionType;
+	/**action config*/
+	@Excel(name = "action config", width = 15)
+    @ApiModelProperty(value = "action config")
+    private java.lang.String actionConfig;
 	/**last sync time*/
 	@Excel(name = "last sync time", width = 20, format = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "last sync time")
     private java.util.Date syncTime;
-	/**create time in gleam*/
-	@Excel(name = "create time in gleam", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "create time in gleam")
-    private java.util.Date gleamCreateAt;
-	/**fraud_type*/
-	@Excel(name = "fraud_type", width = 15)
-    @ApiModelProperty(value = "fraud_type")
-    private java.lang.String fraudType;
 }

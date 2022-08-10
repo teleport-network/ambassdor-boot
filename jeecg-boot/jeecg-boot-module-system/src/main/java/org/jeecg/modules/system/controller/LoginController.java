@@ -81,7 +81,7 @@ public class LoginController {
 		if (find == null) {
 			return Result.error("User not found.");
 		}
-		String passwordEncode = PasswordUtil.encrypt(msg.getAddress(), find.getUsername(), CONST_SALT);
+		String passwordEncode = PasswordUtil.encrypt(msg.getAddress(), find.getEmail(), CONST_SALT);
 		String token = JwtUtil.sign(find.getEmail(), passwordEncode);
 		redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token);
 		redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME*2/1000);

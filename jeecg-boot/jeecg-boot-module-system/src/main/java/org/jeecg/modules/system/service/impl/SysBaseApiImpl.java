@@ -125,8 +125,10 @@ public class SysBaseApiImpl implements ISysBaseAPI {
 				return null;
 			}
 			user.setId(amUser.getId());
+			user.setAvatar(amUser.getAvatar());
+			user.setEmail(amUser.getEmail());
 			user.setUsername(amUser.getUsername());
-			user.setPassword(amUser.getUsername());
+			user.setPassword(amUser.getEmail());
 			user.setDelFlag(0);
 			user.setStatus(1);
 		}
