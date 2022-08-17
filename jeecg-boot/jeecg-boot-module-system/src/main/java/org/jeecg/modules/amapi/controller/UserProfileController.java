@@ -16,9 +16,11 @@ import org.jeecg.modules.amuser.entity.AmbassadorUser;
 import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,6 +72,22 @@ public class UserProfileController {
             return questService.getById(d.getQuestFk());
         }).distinct().collect(Collectors.toList());
         return Result.OK("success", find);
+    }
+
+    @PostMapping("/collect-point")
+    public Result<?> collectPoints() {
+        LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+        String email = sysUser.getEmail();
+        AmbassadorUser user = ambassadorUserService.query().eq("email", email).one();
+        if (user.getPoint() == null) {
+            user.setPoint(BigDecimal.ZERO);
+        }
+        BigDecimal pointsToAdd = user.getPointCache() == null ? BigDecimal.ZERO : user.getPointCache();
+        BigDecimal newPoint = user.getPoint().add(pointsToAdd);
+        user.setPoint(newPoint);
+        user.setPointCache(BigDecimal.ZERO);
+        ambassadorUserService.saveOrUpdate(user);
+        return Result.OK("success", user);
     }
 
 }

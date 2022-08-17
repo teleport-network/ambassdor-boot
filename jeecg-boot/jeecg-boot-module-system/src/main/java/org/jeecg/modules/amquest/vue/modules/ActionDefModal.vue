@@ -22,8 +22,8 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="reward" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="reward">
-              <a-input-number v-model="model.reward"placeholder="请输入reward" style="width: 100%" />
+            <a-form-model-item label="points rewards" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="reward">
+              <a-input-number v-model="model.reward"placeholder="请输入points rewards" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">

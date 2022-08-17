@@ -74,7 +74,6 @@ public class LoginUser {
 	/**
 	 * 电子邮件
 	 */
-	@SensitiveField
 	private String email;
 
 	/**

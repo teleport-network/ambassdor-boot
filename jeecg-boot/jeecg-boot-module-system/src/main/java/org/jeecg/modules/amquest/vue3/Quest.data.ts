@@ -27,7 +27,7 @@ export const columns: BasicColumn[] = [
    {
     title: 'type',
     align:"center",
-    dataIndex: 'type'
+    dataIndex: 'type_dictText'
    },
    {
     title: 'image',
@@ -91,7 +91,11 @@ export const formSchema: FormSchema[] = [
   {
     label: 'type',
     field: 'type',
-    component: 'Input',
+    component: 'JTreeSelect',
+    componentProps:{
+        dict:"quest_type,name,id",
+        pidValue:"0",
+    },
   },
   {
     label: 'image',
@@ -163,7 +167,7 @@ export const actionDefColumns: BasicColumn[] = [
     dataIndex: 'worth'
    },
    {
-    title: 'reward',
+    title: 'points rewards',
     align:"center",
     dataIndex: 'reward'
    },
@@ -263,7 +267,7 @@ export const actionDefFormSchema: FormSchema[] = [
     component: 'InputNumber',
   },
   {
-    label: 'reward',
+    label: 'points rewards',
     field: 'reward',
     component: 'InputNumber',
   },

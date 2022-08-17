@@ -141,7 +141,7 @@
             dataIndex: 'worth'
           },
           {
-            title:'reward',
+            title:'points rewards',
             align:"center",
             dataIndex: 'reward'
           },

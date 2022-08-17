@@ -134,7 +134,7 @@
           {
             title:'type',
             align:"center",
-            dataIndex: 'type'
+            dataIndex: 'type_dictText',
           },
           {
             title:'image',
@@ -262,7 +262,7 @@
         fieldList.push({type:'string',value:'title',text:'title',dictCode:''})
         fieldList.push({type:'string',value:'url',text:'quest link',dictCode:''})
         fieldList.push({type:'int',value:'rewards',text:'rewards points',dictCode:''})
-        fieldList.push({type:'string',value:'type',text:'type',dictCode:''})
+        fieldList.push({type:'string',value:'type',text:'type'})
         fieldList.push({type:'string',value:'image',text:'image',dictCode:''})
         fieldList.push({type:'datetime',value:'issueDate',text:'quest date'})
         fieldList.push({type:'datetime',value:'deadline',text:'queat duration'})

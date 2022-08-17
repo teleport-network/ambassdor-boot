@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * @Description: quest list
  * @Author: jeecg-boot
- * @Date:   2022-08-01
+ * @Date:   2022-08-12
  * @Version: V1.0
  */
 public interface AmUserQuestMapper extends BaseMapper<AmUserQuest> {

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @Description: quest
  * @Author: jeecg-boot
- * @Date:   2022-08-10
+ * @Date:   2022-08-11
  * @Version: V1.0
  */
 public interface IQuestService extends IService<Quest> {

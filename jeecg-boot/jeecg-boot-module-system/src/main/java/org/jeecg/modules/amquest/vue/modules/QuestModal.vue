@@ -33,7 +33,14 @@
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="type" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="type">
-              <a-input v-model="model.type" placeholder="请输入type" ></a-input>
+              <j-tree-select
+                ref="treeSelect"
+                placeholder="请选择type"
+                v-model="model.type"
+                dict="quest_type,name,id"
+                pidValue="0"
+                >
+              </j-tree-select>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">

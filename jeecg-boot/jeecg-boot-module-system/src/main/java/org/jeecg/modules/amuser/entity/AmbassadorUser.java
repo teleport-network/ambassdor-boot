@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @Description: ambassador user list
  * @Author: jeecg-boot
- * @Date:   2022-08-01
+ * @Date:   2022-08-12
  * @Version: V1.0
  */
 @Data
@@ -82,6 +82,10 @@ public class AmbassadorUser implements Serializable {
     @Excel(name = "当前points数量", width = 15)
     @ApiModelProperty(value = "当前points数量")
     private java.math.BigDecimal point;
+	/**当前未收集的points*/
+    @Excel(name = "当前未收集的points", width = 15)
+    @ApiModelProperty(value = "当前未收集的points")
+    private java.math.BigDecimal pointCache;
 	/**当前等级*/
     @Excel(name = "当前等级", width = 15, dicCode = "user_level")
     @Dict(dicCode = "user_level")
