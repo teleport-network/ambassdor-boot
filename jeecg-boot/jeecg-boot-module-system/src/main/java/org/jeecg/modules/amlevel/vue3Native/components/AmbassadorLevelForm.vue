@@ -3,18 +3,28 @@
     <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol">
       <a-row>
         <a-col :span="24">
-          <a-form-item label="name" v-bind="validateInfos.name">
-            <a-input v-model:value="formData.name" placeholder="请输入name" :disabled="disabled"></a-input>
+          <a-form-item label="Name" v-bind="validateInfos.name">
+            <a-input v-model:value="formData.name" placeholder="请输入Name" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="points for level-up" v-bind="validateInfos.points">
-	          <a-input-number v-model:value="formData.points" placeholder="请输入points for level-up" style="width: 100%" :disabled="disabled"/>
+          <a-form-item label="Points for Level-up" v-bind="validateInfos.points">
+	          <a-input-number v-model:value="formData.points" placeholder="请输入Points for Level-up" style="width: 100%" :disabled="disabled"/>
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="token allocation" v-bind="validateInfos.token">
-	          <a-input-number v-model:value="formData.token" placeholder="请输入token allocation" style="width: 100%" :disabled="disabled"/>
+          <a-form-item label="Token Allocation" v-bind="validateInfos.token">
+	          <a-input-number v-model:value="formData.token" placeholder="请输入Token Allocation" style="width: 100%" :disabled="disabled"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="Level Index" v-bind="validateInfos.lvlIndex">
+	          <a-input-number v-model:value="formData.lvlIndex" placeholder="请输入Level Index" style="width: 100%" :disabled="disabled"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="NFT Allocation" v-bind="validateInfos.nft">
+            <a-input v-model:value="formData.nft" placeholder="请输入NFT Allocation" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
       </a-row>
@@ -45,6 +55,10 @@
     points: undefined,
     id: '',
     token: undefined,
+    id: '',
+    lvlIndex: undefined,
+    id: '',
+    nft: '',   
   });
   const { createMessage } = useMessage();
   const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });

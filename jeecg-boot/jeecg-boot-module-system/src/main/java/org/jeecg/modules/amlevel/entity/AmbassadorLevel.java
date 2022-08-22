@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: ambassador level
  * @Author: jeecg-boot
- * @Date:   2022-08-11
+ * @Date:   2022-08-22
  * @Version: V1.0
  */
 @Data
@@ -54,16 +54,24 @@ public class AmbassadorLevel implements Serializable {
 	/**所属部门*/
     @ApiModelProperty(value = "所属部门")
     private java.lang.String sysOrgCode;
-	/**name*/
-	@Excel(name = "name", width = 15)
-    @ApiModelProperty(value = "name")
+	/**Name*/
+	@Excel(name = "Name", width = 15)
+    @ApiModelProperty(value = "Name")
     private java.lang.String name;
-	/**points for level-up*/
-	@Excel(name = "points for level-up", width = 15)
-    @ApiModelProperty(value = "points for level-up")
+	/**Points for Level-up*/
+	@Excel(name = "Points for Level-up", width = 15)
+    @ApiModelProperty(value = "Points for Level-up")
     private java.lang.Integer points;
-	/**token allocation*/
-	@Excel(name = "token allocation", width = 15)
-    @ApiModelProperty(value = "token allocation")
+	/**Token Allocation*/
+	@Excel(name = "Token Allocation", width = 15)
+    @ApiModelProperty(value = "Token Allocation")
     private java.lang.Integer token;
+	/**Level Index*/
+	@Excel(name = "Level Index", width = 15)
+    @ApiModelProperty(value = "Level Index")
+    private java.lang.Integer lvlIndex;
+	/**NFT Allocation*/
+	@Excel(name = "NFT Allocation", width = 15)
+    @ApiModelProperty(value = "NFT Allocation")
+    private java.lang.String nft;
 }

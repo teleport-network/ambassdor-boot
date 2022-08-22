@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Description: quest list
  * @Author: jeecg-boot
- * @Date:   2022-08-12
+ * @Date:   2022-08-18
  * @Version: V1.0
  */
 public interface IAmUserQuestService extends IService<AmUserQuest> {

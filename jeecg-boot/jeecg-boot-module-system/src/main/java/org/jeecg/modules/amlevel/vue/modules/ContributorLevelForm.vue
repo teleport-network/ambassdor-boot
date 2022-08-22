@@ -9,13 +9,23 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="Points for Level-Up" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="point">
-              <a-input-number v-model="model.point" placeholder="请输入Points for Level-Up" style="width: 100%" />
+            <a-form-model-item label="Points for Level-Up" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="points">
+              <a-input-number v-model="model.points" placeholder="请输入Points for Level-Up" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Token Allocation" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="token">
               <a-input-number v-model="model.token" placeholder="请输入Token Allocation" style="width: 100%" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="Level Index" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="lvlIndex">
+              <a-input-number v-model="model.lvlIndex" placeholder="请输入Level Index" style="width: 100%" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="NFT Allocation" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="nft">
+              <a-input v-model="model.nft" placeholder="请输入NFT Allocation"  ></a-input>
             </a-form-model-item>
           </a-col>
         </a-row>

@@ -131,7 +131,7 @@ export const formSchema: FormSchema[] = [
     dynamicRules: ({model,schema}) => {
           return [
                  { required: false},
-                 { pattern: /^(([1-9][0-9]*)|([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2}))$/, message: '请输入正确的金额!'},
+                 { pattern: /^-?\d+\.?\d*$/, message: '请输入数字!'},
           ];
      },
   },
@@ -150,6 +150,12 @@ export const formSchema: FormSchema[] = [
     label: '当前未收集的points',
     field: 'pointCache',
     component: 'InputNumber',
+    dynamicRules: ({model,schema}) => {
+          return [
+                 { required: false},
+                 { pattern: /^-?\d+$/, message: '请输入整数!'},
+          ];
+     },
   },
   {
     label: '当前等级',

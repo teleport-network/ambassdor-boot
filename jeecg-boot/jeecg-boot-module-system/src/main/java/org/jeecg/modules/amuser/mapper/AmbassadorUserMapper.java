@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * @Description: ambassador user list
  * @Author: jeecg-boot
- * @Date:   2022-08-12
+ * @Date:   2022-08-18
  * @Version: V1.0
  */
 public interface AmbassadorUserMapper extends BaseMapper<AmbassadorUser> {

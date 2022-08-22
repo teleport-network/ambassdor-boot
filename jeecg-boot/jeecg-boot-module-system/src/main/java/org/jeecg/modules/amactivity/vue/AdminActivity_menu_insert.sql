@@ -3,24 +3,24 @@
 
 
 INSERT INTO sys_permission(id, parent_id, name, url, component, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_route, is_leaf, keep_alive, hidden, hide_tab, description, status, del_flag, rule_flag, create_by, create_time, update_by, update_time, internal_or_external) 
-VALUES ('2022081503378570530', NULL, 'admin activity', '/amactivity/adminActivityList', 'amactivity/AdminActivityList', NULL, NULL, 0, NULL, '1', 1.00, 0, NULL, 1, 1, 0, 0, 0, NULL, '1', 0, 0, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0);
+VALUES ('202208180528820590', NULL, 'admin activity', '/amactivity/adminActivityList', 'amactivity/AdminActivityList', NULL, NULL, 0, NULL, '1', 1.00, 0, NULL, 1, 1, 0, 0, 0, NULL, '1', 0, 0, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0);
 
 -- 权限控制sql
 -- 新增
 INSERT INTO sys_permission(id, parent_id, name, url, component, is_route, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_leaf, keep_alive, hidden, hide_tab, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external)
-VALUES ('2022081503378580531', '2022081503378570530', '添加admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:add', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0, 0, '1', 0);
+VALUES ('202208180528840591', '202208180528820590', '添加admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:add', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0, 0, '1', 0);
 -- 编辑
 INSERT INTO sys_permission(id, parent_id, name, url, component, is_route, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_leaf, keep_alive, hidden, hide_tab, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external)
-VALUES ('2022081503378580532', '2022081503378570530', '编辑admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:edit', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0, 0, '1', 0);
+VALUES ('202208180528840592', '202208180528820590', '编辑admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:edit', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0, 0, '1', 0);
 -- 删除
 INSERT INTO sys_permission(id, parent_id, name, url, component, is_route, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_leaf, keep_alive, hidden, hide_tab, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external)
-VALUES ('2022081503378580533', '2022081503378570530', '删除admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:delete', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0, 0, '1', 0);
+VALUES ('202208180528840593', '202208180528820590', '删除admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:delete', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0, 0, '1', 0);
 -- 批量删除
 INSERT INTO sys_permission(id, parent_id, name, url, component, is_route, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_leaf, keep_alive, hidden, hide_tab, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external)
-VALUES ('2022081503378580534', '2022081503378570530', '批量删除admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:deleteBatch', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0, 0, '1', 0);
+VALUES ('202208180528840594', '202208180528820590', '批量删除admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:deleteBatch', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0, 0, '1', 0);
 -- 导出excel
 INSERT INTO sys_permission(id, parent_id, name, url, component, is_route, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_leaf, keep_alive, hidden, hide_tab, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external)
-VALUES ('2022081503378580535', '2022081503378570530', '导出excel_admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:exportXls', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0, 0, '1', 0);
+VALUES ('202208180528840595', '202208180528820590', '导出excel_admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:exportXls', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0, 0, '1', 0);
 -- 导入excel
 INSERT INTO sys_permission(id, parent_id, name, url, component, is_route, component_name, redirect, menu_type, perms, perms_type, sort_no, always_show, icon, is_leaf, keep_alive, hidden, hide_tab, description, create_by, create_time, update_by, update_time, del_flag, rule_flag, status, internal_or_external)
-VALUES ('2022081503378580536', '2022081503378570530', '导入excel_admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:importExcel', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-15 15:37:53', NULL, NULL, 0, 0, '1', 0);
+VALUES ('202208180528840596', '202208180528820590', '导入excel_admin activity', NULL, NULL, 0, NULL, NULL, 2, 'org.jeecg.modules:admin_activity:importExcel', '1', NULL, 0, NULL, 1, 0, 0, 0, NULL, 'admin', '2022-08-18 17:28:59', NULL, NULL, 0, 0, '1', 0);

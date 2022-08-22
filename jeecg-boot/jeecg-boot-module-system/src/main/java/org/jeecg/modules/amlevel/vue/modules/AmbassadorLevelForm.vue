@@ -4,18 +4,28 @@
       <a-form-model ref="form" :model="model" :rules="validatorRules" slot="detail">
         <a-row>
           <a-col :span="24">
-            <a-form-model-item label="name" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="name">
-              <a-input v-model="model.name" placeholder="请输入name"  ></a-input>
+            <a-form-model-item label="Name" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="name">
+              <a-input v-model="model.name" placeholder="请输入Name"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="points for level-up" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="points">
-              <a-input-number v-model="model.points" placeholder="请输入points for level-up" style="width: 100%" />
+            <a-form-model-item label="Points for Level-up" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="points">
+              <a-input-number v-model="model.points" placeholder="请输入Points for Level-up" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="token allocation" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="token">
-              <a-input-number v-model="model.token" placeholder="请输入token allocation" style="width: 100%" />
+            <a-form-model-item label="Token Allocation" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="token">
+              <a-input-number v-model="model.token" placeholder="请输入Token Allocation" style="width: 100%" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="Level Index" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="lvlIndex">
+              <a-input-number v-model="model.lvlIndex" placeholder="请输入Level Index" style="width: 100%" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="NFT Allocation" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="nft">
+              <a-input v-model="model.nft" placeholder="请输入NFT Allocation"  ></a-input>
             </a-form-model-item>
           </a-col>
         </a-row>

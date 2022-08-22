@@ -54,13 +54,11 @@ export const formSchema: FormSchema[] = [
     label: 'Title',
     field: 'title',
     component: 'Input',
-    dynamicDisabled:true
   },
   {
     label: 'Sender',
     field: 'sender',
     component: 'Input',
-    dynamicDisabled:true
   },
   {
     label: 'Send time',
@@ -70,7 +68,6 @@ export const formSchema: FormSchema[] = [
        showTime: true,
        valueFormat: 'YYYY-MM-DD HH:mm:ss'
      },
-    dynamicDisabled:true
   },
   {
     label: 'Type',
@@ -79,7 +76,6 @@ export const formSchema: FormSchema[] = [
     componentProps:{
         dictCode:"activity_type"
      },
-    dynamicDisabled:true
   },
   {
     label: 'Amount',
@@ -90,13 +86,11 @@ export const formSchema: FormSchema[] = [
     label: 'Quest',
     field: 'questRef',
     component: 'Input',
-    dynamicDisabled:true
   },
   {
     label: 'Action Id',
     field: 'actionRef',
     component: 'Input',
-    dynamicDisabled:true
   },
   {
     label: 'Status',
@@ -105,6 +99,7 @@ export const formSchema: FormSchema[] = [
     componentProps:{
         dictCode:"activity_status"
      },
+    dynamicDisabled:true
   },
 	// TODO 主键隐藏字段，目前写死为ID
 	{

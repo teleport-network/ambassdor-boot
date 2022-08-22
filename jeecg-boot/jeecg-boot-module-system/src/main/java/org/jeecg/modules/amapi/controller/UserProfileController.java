@@ -6,6 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.vo.LoginUser;
+import org.jeecg.modules.amapi.vo.AbstractLevel;
+import org.jeecg.modules.amlevel.entity.AmbassadorLevel;
+import org.jeecg.modules.amlevel.entity.ContributorLevel;
+import org.jeecg.modules.amlevel.service.IAmbassadorLevelService;
+import org.jeecg.modules.amlevel.service.IContributorLevelService;
 import org.jeecg.modules.amqaction.entity.QuestAction;
 import org.jeecg.modules.amqaction.service.IQuestActionService;
 import org.jeecg.modules.amquest.entity.ActionDef;
@@ -21,8 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Api(tags="userprofile")
 @RestController
@@ -41,6 +50,12 @@ public class UserProfileController {
 
     @Autowired
     private IQuestService questService;
+
+    @Autowired
+    private IAmbassadorLevelService ambassadorLevelService;
+
+    @Autowired
+    private IContributorLevelService contributorLevelService;
 
     @GetMapping
     public Result<?> getCurrentUser() {
@@ -86,8 +101,71 @@ public class UserProfileController {
         BigDecimal newPoint = user.getPoint().add(pointsToAdd);
         user.setPoint(newPoint);
         user.setPointCache(BigDecimal.ZERO);
+        String lvlName = levelCompute(user);
+        if (!lvlName.equalsIgnoreCase(user.getLevel())) {
+            user.setLevel(lvlName);
+            // process user level-up;
+        }
         ambassadorUserService.saveOrUpdate(user);
         return Result.OK("success", user);
+    }
+
+    private String levelCompute(AmbassadorUser user) {
+        BigDecimal point = user.getPoint();
+        if("ambassador".equalsIgnoreCase(user.getRole())) {
+            List<AmbassadorLevel> levels = ambassadorLevelService.list().stream()
+                    .sorted((i,j)->Integer.compare(i.getLvlIndex(), j.getLvlIndex())).collect(Collectors.toList());
+            List<AbstractLevel> abstractLevels = new ArrayList<>();
+            AbstractLevel lvl1 = AbstractLevel.builder()
+                    .name(levels.get(0).getName())
+                    .lvlIndex(levels.get(0).getLvlIndex())
+                    .pointsMin(0)
+                    .pointsMax(levels.get(0).getPoints())
+                    .build();
+            abstractLevels.add(lvl1);
+            for (int i=1; i<levels.size(); i++) {
+                AmbassadorLevel aml = levels.get(i);
+                AbstractLevel lvl = AbstractLevel.builder()
+                        .name(aml.getName())
+                        .lvlIndex(aml.getLvlIndex())
+                        .pointsMin(abstractLevels.get(i-1).getPointsMax())
+                        .pointsMax(abstractLevels.get(i-1).getPointsMax() + aml.getPoints())
+                        .build();
+                abstractLevels.add(lvl);
+            }
+            Optional<AbstractLevel> lvIndex = abstractLevels.stream()
+                    .filter(lv ->  user.getPoint().compareTo(BigDecimal.valueOf(lv.getPointsMin())) >=0
+                            && user.getPoint().compareTo(BigDecimal.valueOf(lv.getPointsMax())) <=0 )
+                    .findAny();
+            return lvIndex.orElse(abstractLevels.get(abstractLevels.size()-1)).getName();
+        } else {
+            List<ContributorLevel> levels = contributorLevelService.list().stream()
+                    .sorted((i,j)->Integer.compare(i.getLvlIndex(), j.getLvlIndex())).collect(Collectors.toList());
+            List<AbstractLevel> abstractLevels = new ArrayList<>();
+            AbstractLevel lvl1 = AbstractLevel.builder()
+                    .name(levels.get(0).getName())
+                    .lvlIndex(levels.get(0).getLvlIndex())
+                    .pointsMin(0)
+                    .pointsMax(levels.get(0).getPoints())
+                    .build();
+            abstractLevels.add(lvl1);
+            for (int i=1; i<levels.size(); i++) {
+                ContributorLevel cnl = levels.get(i);
+                AbstractLevel lvl = AbstractLevel.builder()
+                        .name(cnl.getName())
+                        .lvlIndex(cnl.getLvlIndex())
+                        .pointsMin(abstractLevels.get(i-1).getPointsMax())
+                        .pointsMax(abstractLevels.get(i-1).getPointsMax() + cnl.getPoints())
+                        .build();
+                abstractLevels.add(lvl);
+            }
+            Optional<AbstractLevel> lvIndex = abstractLevels.stream()
+                    .filter(lv ->  user.getPoint().compareTo(BigDecimal.valueOf(lv.getPointsMin())) >=0
+                            && user.getPoint().compareTo(BigDecimal.valueOf(lv.getPointsMax())) <=0 )
+                    .findAny();
+            return lvIndex.isPresent()? lvIndex.get().getName() : "full-class";
+        }
+
     }
 
 }

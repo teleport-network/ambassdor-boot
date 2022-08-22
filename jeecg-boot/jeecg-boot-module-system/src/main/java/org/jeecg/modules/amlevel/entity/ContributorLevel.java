@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: contributor level
  * @Author: jeecg-boot
- * @Date:   2022-08-11
+ * @Date:   2022-08-22
  * @Version: V1.0
  */
 @Data
@@ -61,9 +61,17 @@ public class ContributorLevel implements Serializable {
 	/**Points for Level-Up*/
 	@Excel(name = "Points for Level-Up", width = 15)
     @ApiModelProperty(value = "Points for Level-Up")
-    private java.lang.Integer point;
+    private java.lang.Integer points;
 	/**Token Allocation*/
 	@Excel(name = "Token Allocation", width = 15)
     @ApiModelProperty(value = "Token Allocation")
     private java.lang.Integer token;
+	/**Level Index*/
+	@Excel(name = "Level Index", width = 15)
+    @ApiModelProperty(value = "Level Index")
+    private java.lang.Integer lvlIndex;
+	/**NFT Allocation*/
+	@Excel(name = "NFT Allocation", width = 15)
+    @ApiModelProperty(value = "NFT Allocation")
+    private java.lang.String nft;
 }

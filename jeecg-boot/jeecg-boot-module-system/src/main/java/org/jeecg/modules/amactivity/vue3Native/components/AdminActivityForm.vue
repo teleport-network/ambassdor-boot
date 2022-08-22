@@ -4,22 +4,22 @@
       <a-row>
         <a-col :span="24">
           <a-form-item label="Title" v-bind="validateInfos.title">
-            <a-input v-model:value="formData.title" placeholder="请输入Title" disabled></a-input>
+            <a-input v-model:value="formData.title" placeholder="请输入Title" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Sender" v-bind="validateInfos.sender">
-            <a-input v-model:value="formData.sender" placeholder="请输入Sender" disabled></a-input>
+            <a-input v-model:value="formData.sender" placeholder="请输入Sender" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Send time" v-bind="validateInfos.sendTime">
-		        <a-date-picker placeholder="请选择Send time"  v-model:value="formData.sendTime" showTime value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" disabled/>
+		        <a-date-picker placeholder="请选择Send time"  v-model:value="formData.sendTime" showTime value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" :disabled="disabled"/>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Type" v-bind="validateInfos.type">
-	          <j-dict-select-tag v-model:value="formData.type" dictCode="activity_type" placeholder="请选择Type" disabled/>
+	          <j-dict-select-tag v-model:value="formData.type" dictCode="activity_type" placeholder="请选择Type" :disabled="disabled"/>
           </a-form-item>
         </a-col>
         <a-col :span="24">
@@ -29,17 +29,17 @@
         </a-col>
         <a-col :span="24">
           <a-form-item label="Quest" v-bind="validateInfos.questRef">
-            <a-input v-model:value="formData.questRef" placeholder="请输入Quest" disabled></a-input>
+            <a-input v-model:value="formData.questRef" placeholder="请输入Quest" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Action Id" v-bind="validateInfos.actionRef">
-            <a-input v-model:value="formData.actionRef" placeholder="请输入Action Id" disabled></a-input>
+            <a-input v-model:value="formData.actionRef" placeholder="请输入Action Id" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Status" v-bind="validateInfos.status">
-	          <j-dict-select-tag v-model:value="formData.status" dictCode="activity_status" placeholder="请选择Status" :disabled="disabled"/>
+	          <j-dict-select-tag v-model:value="formData.status" dictCode="activity_status" placeholder="请选择Status" disabled/>
           </a-form-item>
         </a-col>
       </a-row>

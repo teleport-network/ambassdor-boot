@@ -8,13 +8,23 @@
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="Points for Level-Up" v-bind="validateInfos.point">
-	          <a-input-number v-model:value="formData.point" placeholder="请输入Points for Level-Up" style="width: 100%" :disabled="disabled"/>
+          <a-form-item label="Points for Level-Up" v-bind="validateInfos.points">
+	          <a-input-number v-model:value="formData.points" placeholder="请输入Points for Level-Up" style="width: 100%" :disabled="disabled"/>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Token Allocation" v-bind="validateInfos.token">
 	          <a-input-number v-model:value="formData.token" placeholder="请输入Token Allocation" style="width: 100%" :disabled="disabled"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="Level Index" v-bind="validateInfos.lvlIndex">
+	          <a-input-number v-model:value="formData.lvlIndex" placeholder="请输入Level Index" style="width: 100%" :disabled="disabled"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="NFT Allocation" v-bind="validateInfos.nft">
+            <a-input v-model:value="formData.nft" placeholder="请输入NFT Allocation" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
       </a-row>
@@ -42,9 +52,13 @@
     id: '',
     name: '',   
     id: '',
-    point: undefined,
+    points: undefined,
     id: '',
     token: undefined,
+    id: '',
+    lvlIndex: undefined,
+    id: '',
+    nft: '',   
   });
   const { createMessage } = useMessage();
   const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });

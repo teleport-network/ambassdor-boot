@@ -39,7 +39,7 @@ import org.jeecg.common.aspect.annotation.AutoLog;
  /**
  * @Description: ambassador level
  * @Author: jeecg-boot
- * @Date:   2022-08-11
+ * @Date:   2022-08-22
  * @Version: V1.0
  */
 @Api(tags="ambassador level")

@@ -122,19 +122,29 @@
             }
           },
           {
-            title:'name',
+            title:'Name',
             align:"center",
             dataIndex: 'name'
           },
           {
-            title:'points for level-up',
+            title:'Points for Level-up',
             align:"center",
             dataIndex: 'points'
           },
           {
-            title:'token allocation',
+            title:'Token Allocation',
             align:"center",
             dataIndex: 'token'
+          },
+          {
+            title:'Level Index',
+            align:"center",
+            dataIndex: 'lvlIndex'
+          },
+          {
+            title:'NFT Allocation',
+            align:"center",
+            dataIndex: 'nft'
           },
           {
             title: '操作',
@@ -170,9 +180,11 @@
       },
       getSuperFieldList(){
         let fieldList=[];
-        fieldList.push({type:'string',value:'name',text:'name',dictCode:''})
-        fieldList.push({type:'int',value:'points',text:'points for level-up',dictCode:''})
-        fieldList.push({type:'int',value:'token',text:'token allocation',dictCode:''})
+        fieldList.push({type:'string',value:'name',text:'Name',dictCode:''})
+        fieldList.push({type:'int',value:'points',text:'Points for Level-up',dictCode:''})
+        fieldList.push({type:'int',value:'token',text:'Token Allocation',dictCode:''})
+        fieldList.push({type:'int',value:'lvlIndex',text:'Level Index',dictCode:''})
+        fieldList.push({type:'Text',value:'nft',text:'NFT Allocation',dictCode:''})
         this.superFieldList = fieldList
       }
     }

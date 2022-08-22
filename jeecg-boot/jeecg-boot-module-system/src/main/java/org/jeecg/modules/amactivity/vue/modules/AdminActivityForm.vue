@@ -5,22 +5,22 @@
         <a-row>
           <a-col :span="24">
             <a-form-model-item label="Title" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="title">
-              <a-input v-model="model.title" placeholder="请输入Title" disabled ></a-input>
+              <a-input v-model="model.title" placeholder="请输入Title"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Sender" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="sender">
-              <a-input v-model="model.sender" placeholder="请输入Sender" disabled ></a-input>
+              <a-input v-model="model.sender" placeholder="请输入Sender"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Send time" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="sendTime">
-              <j-date placeholder="请选择Send time"  v-model="model.sendTime" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" disabled/>
+              <j-date placeholder="请选择Send time"  v-model="model.sendTime" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Type" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="type">
-              <j-dict-select-tag type="list" v-model="model.type" dictCode="activity_type" placeholder="请选择Type" disabled/>
+              <j-dict-select-tag type="list" v-model="model.type" dictCode="activity_type" placeholder="请选择Type" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
@@ -30,17 +30,17 @@
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Quest" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="questRef">
-              <a-input v-model="model.questRef" placeholder="请输入Quest" disabled ></a-input>
+              <a-input v-model="model.questRef" placeholder="请输入Quest"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Action Id" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="actionRef">
-              <a-input v-model="model.actionRef" placeholder="请输入Action Id" disabled ></a-input>
+              <a-input v-model="model.actionRef" placeholder="请输入Action Id"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Status" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
-              <j-dict-select-tag type="list" v-model="model.status" dictCode="activity_status" placeholder="请选择Status" />
+              <j-dict-select-tag type="list" v-model="model.status" dictCode="activity_status" placeholder="请选择Status" disabled/>
             </a-form-model-item>
           </a-col>
         </a-row>
