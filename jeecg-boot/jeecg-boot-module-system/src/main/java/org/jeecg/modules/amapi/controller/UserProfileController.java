@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.vo.LoginUser;
+import org.jeecg.modules.amactivity.entity.AdminActivity;
+import org.jeecg.modules.amactivity.service.IAdminActivityService;
 import org.jeecg.modules.amapi.vo.AbstractLevel;
 import org.jeecg.modules.amlevel.entity.AmbassadorLevel;
 import org.jeecg.modules.amlevel.entity.ContributorLevel;
@@ -26,10 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,6 +55,9 @@ public class UserProfileController {
 
     @Autowired
     private IContributorLevelService contributorLevelService;
+
+    @Autowired
+    private IAdminActivityService adminActivityService;
 
     @GetMapping
     public Result<?> getCurrentUser() {
@@ -105,9 +107,41 @@ public class UserProfileController {
         if (!lvlName.equalsIgnoreCase(user.getLevel())) {
             user.setLevel(lvlName);
             // process user level-up;
+            processLevelUpToken(user);
+            processLevelUpNft(user);
         }
         ambassadorUserService.saveOrUpdate(user);
         return Result.OK("success", user);
+    }
+
+    private void processLevelUpToken(AmbassadorUser user) {
+        Integer tokenReward;
+        if ("ambassador".equalsIgnoreCase(user.getRole())) {
+            AmbassadorLevel amlvl = ambassadorLevelService.query().eq("name",user.getLevel()).one();
+            tokenReward = amlvl.getToken();
+        } else {
+            ContributorLevel cnlvl = contributorLevelService.query().eq("name", user.getLevel()).one();
+            tokenReward = cnlvl.getToken();
+        }
+        if (tokenReward == 0) {
+            log.info("Zero Token Rewards for level-up {}.", user.getLevel());
+            return;
+        }
+
+        AdminActivity activity = new AdminActivity();
+        activity.setStatus("0");
+        activity.setTitle("Token Rewards for Level-Up: " + user.getLevel());
+        //1. point; 2. token; 3. nft
+        activity.setType("token");
+        activity.setSender(user.getEmail());
+        activity.setSendTime(new Date());
+        activity.setInputAmount(tokenReward.doubleValue());
+        adminActivityService.saveOrUpdate(activity);
+        log.info("Inserted Admin Activity:{}", activity);
+    }
+
+    private void processLevelUpNft(AmbassadorUser user) {
+
     }
 
     private String levelCompute(AmbassadorUser user) {

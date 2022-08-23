@@ -5,9 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.modules.amactivity.entity.AdminActivity;
 import org.jeecg.modules.amactivity.service.IAdminActivityService;
+import org.jeecg.modules.amuser.entity.AmUserPoint;
+import org.jeecg.modules.amuser.entity.AmUserToken;
 import org.jeecg.modules.amuser.entity.AmbassadorUser;
+import org.jeecg.modules.amuser.service.IAmUserNftService;
+import org.jeecg.modules.amuser.service.IAmUserPointService;
+import org.jeecg.modules.amuser.service.IAmUserTokenService;
 import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Api(tags="administration")
@@ -28,18 +38,75 @@ public class AdministrationController {
     @Autowired
     private IAmbassadorUserService ambassadorUserService;
 
+    @Autowired
+    private IAmUserPointService amUserPointService;
+
+    @Autowired
+    private IAmUserTokenService amUserTokenService;
+
+    @Autowired
+    private IAmUserNftService amUserNftService;
+
     @PutMapping("/amactivity/adminActivity/approve")
     @Transactional
     public Result<?> approvePoints(@RequestBody AdminActivity adminActivity) {
         log.info("======>>>>>approvePoints:{}", adminActivity);
         adminActivity.setStatus("1");
         adminActivityService.updateById(adminActivity);
+
+        if ("point".equalsIgnoreCase(adminActivity.getType())) {
+            processPoint(adminActivity);
+        } else if ("token".equalsIgnoreCase(adminActivity.getType())) {
+            processToken(adminActivity);
+        } else {
+            processNft(adminActivity);
+        }
+
+        return Result.OK("success");
+    }
+
+    private void processPoint(AdminActivity adminActivity) {
+        // update user point-cache
         String email = adminActivity.getSender();
         Optional<AmbassadorUser> ambassadorUserOpt = ambassadorUserService.query().eq("email", email).oneOpt();
-        AmbassadorUser ambassadorUser = ambassadorUserOpt.get();
+        AmbassadorUser ambassadorUser = ambassadorUserOpt.orElseThrow(() -> new NoSuchElementException("User Not Found."));
         BigDecimal pointCache = Optional.ofNullable(ambassadorUser.getPointCache()).orElse(BigDecimal.ZERO);
         ambassadorUser.setPointCache(pointCache.add(BigDecimal.valueOf(adminActivity.getInputAmount())));
         ambassadorUserService.updateById(ambassadorUser);
-        return Result.OK("success");
+        // add point entry for user
+        AmUserPoint amUserPoint = new AmUserPoint();
+        amUserPoint.setAmbassadorUserId(ambassadorUser.getId());
+        amUserPoint.setAmount(adminActivity.getInputAmount().intValue());
+        amUserPoint.setIssueBy(adminActivity.getQuestRef() + " " + adminActivity.getActionRef() + " Approved by Admin");
+        amUserPoint.setActionUrl(adminActivity.getActionRef());
+        amUserPoint.setConfirmTime(new Date());
+        amUserPointService.save(amUserPoint);
     }
+
+    private void processToken(AdminActivity adminActivity) {
+        // update user token
+        String email = adminActivity.getSender();
+        Optional<AmbassadorUser> ambassadorUserOpt = ambassadorUserService.query().eq("email", email).oneOpt();
+        AmbassadorUser ambassadorUser = ambassadorUserOpt.orElseThrow(() -> new NoSuchElementException("User Not Found."));
+        // BigDecimal token = Optional.ofNullable(ambassadorUser.getToken()).orElse(BigDecimal.ZERO);
+        // ambassadorUser.setToken(token.add(BigDecimal.valueOf(adminActivity.getInputAmount())));
+        // ambassadorUserService.updateById(ambassadorUser);
+        // add token entry for user
+        AmUserToken amUserToken = new AmUserToken();
+        amUserToken.setAmbassadorUserId(ambassadorUser.getId());
+        amUserToken.setAmount(BigDecimal.valueOf(adminActivity.getInputAmount()));
+        amUserToken.setIssueBy("Level-Up: " + ambassadorUser.getLevel());
+
+        LocalDate now = LocalDate.now();
+        amUserToken.setIssueDate(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        LocalDate oneYearAfter = now.plusYears(1);
+        amUserToken.setLockTime(Date.from(oneYearAfter.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        amUserTokenService.save(amUserToken);
+    }
+
+    private void processNft(AdminActivity adminActivity) {
+
+    }
+
+
 }

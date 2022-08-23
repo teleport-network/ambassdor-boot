@@ -14,6 +14,8 @@ import org.jeecg.modules.amquest.entity.ActionDef;
 import org.jeecg.modules.amquest.entity.Quest;
 import org.jeecg.modules.amquest.service.IActionDefService;
 import org.jeecg.modules.amquest.service.IQuestService;
+import org.jeecg.modules.amuser.entity.AmbassadorUser;
+import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -42,6 +44,10 @@ public class GleamActionSyncJob implements Job {
 
     @Autowired
     private IAdminActivityService adminActivityService;
+
+
+    @Autowired
+    private IAmbassadorUserService ambassadorUserService;
 
     private String parameter;
 
@@ -145,6 +151,7 @@ public class GleamActionSyncJob implements Job {
         String id = action.getString("id");
         String name = action.getString("name");
         String email = action.getString("email");
+        String avatar = action.getString("avatar_url");
         String status = action.getString("status");
         JSONObject actionObj = action.getJSONObject("action");
         String actionType = actionObj.getString("type");
@@ -153,6 +160,7 @@ public class GleamActionSyncJob implements Job {
         QuestAction find = questActionService.getById(id);
         //status no changes and existing QuestAction
         if (find != null && status.equalsIgnoreCase(find.getStatus()) && this.parameter == null) {
+            log.info("QuestAction status no changes and existing QuestAction and Loop all Quest.");
             return;
         }
         // persist to QuestAction
@@ -177,15 +185,27 @@ public class GleamActionSyncJob implements Job {
         }
         ActionDef actionDef = actionDefService.getById(toSave.getActionId());
         if (actionDef == null || Optional.ofNullable(actionDef.getReward()).orElse(0) == 0) {
+            log.info("ActionDef with ID:{} not found or ActionDef with zero point.", toSave.getActionId());
             return;
         }
         Quest quest = questService.getById(actionDef.getQuestFk());
         if (quest == null) {
+            log.info("Quest with ID:{} not found.", actionDef.getQuestFk());
             return;
         }
         long aacount = adminActivityService.query().eq("id", id).count();
-        if (aacount >0) {
+        if (aacount > 0) {
+            log.info("Existing Pending Activity:{}", id);
             return;
+        }
+        AmbassadorUser findUser = ambassadorUserService.query().eq("email", email).one();
+        if (findUser == null) {
+            log.info("User: {} not registered in ambassador.", email);
+            return;
+        }
+        if (StringUtils.isEmpty(findUser.getAvatar())) {
+            findUser.setAvatar(avatar);
+            ambassadorUserService.updateById(findUser);
         }
         AdminActivity activity = new AdminActivity();
         activity.setId(id);
@@ -199,7 +219,7 @@ public class GleamActionSyncJob implements Job {
         activity.setQuestRef(quest.getTitle());
         activity.setActionRef(actionDef.getType());
         adminActivityService.saveOrUpdate(activity);
-        log.info("Increased Admin Activity:{}", activity);
+        log.info("Inserted Admin Activity:{}", activity);
     }
 
 }
