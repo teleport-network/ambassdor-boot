@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -97,10 +99,11 @@ public class AdministrationController {
         amUserToken.setAmount(BigDecimal.valueOf(adminActivity.getInputAmount()));
         amUserToken.setIssueBy("Level-Up: " + ambassadorUser.getLevel());
 
-        LocalDate now = LocalDate.now();
-        amUserToken.setIssueDate(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        LocalDate oneYearAfter = now.plusYears(1);
-        amUserToken.setLockTime(Date.from(oneYearAfter.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        LocalDateTime now = LocalDateTime.now();
+
+        amUserToken.setIssueDate(Date.from(now.atZone(ZoneId.systemDefault()).toInstant()));
+        LocalDateTime oneYearAfter = now.plusYears(1);
+        amUserToken.setLockTime(Date.from(oneYearAfter.atZone(ZoneId.systemDefault()).toInstant()));
         amUserTokenService.save(amUserToken);
     }
 
