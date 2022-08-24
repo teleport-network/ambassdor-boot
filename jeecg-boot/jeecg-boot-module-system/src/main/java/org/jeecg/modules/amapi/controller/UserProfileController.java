@@ -3,6 +3,7 @@ package org.jeecg.modules.amapi.controller;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.vo.LoginUser;
@@ -22,10 +23,7 @@ import org.jeecg.modules.amquest.service.IQuestService;
 import org.jeecg.modules.amuser.entity.AmbassadorUser;
 import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -70,10 +68,15 @@ public class UserProfileController {
     }
 
     @GetMapping("/action")
-    public Result<?> getCurrentUserActions() {
+    public Result<?> getCurrentUserActions(@RequestParam(required = false, name = "questKey") String questKey) {
         LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         String email = sysUser.getEmail();
-        List<QuestAction> findAction = questActionService.query().eq("email", email).list();
+        List<QuestAction> findAction;
+        if (StringUtils.isNotBlank(questKey)) {
+            findAction = questActionService.query().eq("email", email).eq("quest_key", questKey).list();
+        } else {
+            findAction = questActionService.query().eq("email", email).list();
+        }
         return Result.OK("success", findAction);
     }
 
