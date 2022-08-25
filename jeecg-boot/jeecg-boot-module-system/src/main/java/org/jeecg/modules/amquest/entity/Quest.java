@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @Description: quest
  * @Author: jeecg-boot
- * @Date:   2022-08-11
+ * @Date:   2022-08-24
  * @Version: V1.0
  */
 @Data
@@ -66,10 +66,14 @@ public class Quest implements Serializable {
     @ApiModelProperty(value = "rewards points")
     private java.lang.Integer rewards;
 	/**type*/
-    @Excel(name = "type", width = 15, dictTable = "quest_type", dicText = "name", dicCode = "id")
-    @Dict(dictTable = "quest_type", dicText = "name", dicCode = "id")
+    @Excel(name = "type", width = 15, dicCode = "quest_type")
+    @Dict(dicCode = "quest_type")
     @ApiModelProperty(value = "type")
     private java.lang.String type;
+	/**description*/
+    @Excel(name = "description", width = 15)
+    @ApiModelProperty(value = "description")
+    private java.lang.String description;
 	/**image*/
     @Excel(name = "image", width = 15)
     @ApiModelProperty(value = "image")

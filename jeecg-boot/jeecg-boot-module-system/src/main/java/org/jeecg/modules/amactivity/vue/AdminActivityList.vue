@@ -4,6 +4,26 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="Sender">
+              <a-input placeholder="请输入Sender" v-model="queryParam.sender"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="Quest Id">
+              <a-input placeholder="请输入Quest Id" v-model="queryParam.questRef"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+              <a @click="handleToggleSearch" style="margin-left: 8px">
+                {{ toggleSearchStatus ? '收起' : '展开' }}
+                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+              </a>
+            </span>
+          </a-col>
         </a-row>
       </a-form>
     </div>
@@ -148,14 +168,14 @@
             dataIndex: 'inputAmount'
           },
           {
-            title:'Quest',
+            title:'Quest Name',
             align:"center",
-            dataIndex: 'questRef'
+            dataIndex: 'questName'
           },
           {
-            title:'Action Id',
+            title:'Action Name',
             align:"center",
-            dataIndex: 'actionRef'
+            dataIndex: 'actionName'
           },
           {
             title:'Status',
@@ -201,8 +221,10 @@
         fieldList.push({type:'datetime',value:'sendTime',text:'Send time'})
         fieldList.push({type:'string',value:'type',text:'Type',dictCode:'activity_type'})
         fieldList.push({type:'double',value:'inputAmount',text:'Amount',dictCode:''})
-        fieldList.push({type:'string',value:'questRef',text:'Quest',dictCode:''})
+        fieldList.push({type:'string',value:'questRef',text:'Quest Id',dictCode:''})
+        fieldList.push({type:'string',value:'questName',text:'Quest Name',dictCode:''})
         fieldList.push({type:'string',value:'actionRef',text:'Action Id',dictCode:''})
+        fieldList.push({type:'string',value:'actionName',text:'Action Name',dictCode:''})
         fieldList.push({type:'string',value:'status',text:'Status',dictCode:'activity_status'})
         this.superFieldList = fieldList
       }

@@ -28,13 +28,23 @@
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="Quest" v-bind="validateInfos.questRef">
-            <a-input v-model:value="formData.questRef" placeholder="请输入Quest" :disabled="disabled"></a-input>
+          <a-form-item label="Quest Id" v-bind="validateInfos.questRef">
+            <a-input v-model:value="formData.questRef" placeholder="请输入Quest Id" :disabled="disabled"></a-input>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="Quest Name" v-bind="validateInfos.questName">
+            <a-input v-model:value="formData.questName" placeholder="请输入Quest Name" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
           <a-form-item label="Action Id" v-bind="validateInfos.actionRef">
             <a-input v-model:value="formData.actionRef" placeholder="请输入Action Id" :disabled="disabled"></a-input>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="Action Name" v-bind="validateInfos.actionName">
+            <a-input v-model:value="formData.actionName" placeholder="请输入Action Name" :disabled="disabled"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="24">
@@ -77,7 +87,11 @@
     id: '',
     questRef: '',   
     id: '',
+    questName: '',   
+    id: '',
     actionRef: '',   
+    id: '',
+    actionName: '',   
     id: '',
     status: '',   
   });

@@ -29,13 +29,23 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="Quest" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="questRef">
-              <a-input v-model="model.questRef" placeholder="请输入Quest"  ></a-input>
+            <a-form-model-item label="Quest Id" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="questRef">
+              <a-input v-model="model.questRef" placeholder="请输入Quest Id"  ></a-input>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="Quest Name" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="questName">
+              <a-input v-model="model.questName" placeholder="请输入Quest Name"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="Action Id" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="actionRef">
               <a-input v-model="model.actionRef" placeholder="请输入Action Id"  ></a-input>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="Action Name" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="actionName">
+              <a-input v-model="model.actionName" placeholder="请输入Action Name"  ></a-input>
             </a-form-model-item>
           </a-col>
           <a-col :span="24">

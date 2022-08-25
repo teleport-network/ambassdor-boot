@@ -136,14 +136,19 @@
             dataIndex: 'type'
           },
           {
-            title:'worth',
+            title:'Categories',
             align:"center",
-            dataIndex: 'worth'
+            dataIndex: 'categories_dictText',
           },
           {
             title:'points rewards',
             align:"center",
             dataIndex: 'reward'
+          },
+          {
+            title:'worth',
+            align:"center",
+            dataIndex: 'worth'
           },
           {
             title:'mandatory',
@@ -237,6 +242,7 @@
           importUrl: "/amquest/quest/importActionDef",
         },
         dictOptions:{
+         type:[],
         }
       }
     },

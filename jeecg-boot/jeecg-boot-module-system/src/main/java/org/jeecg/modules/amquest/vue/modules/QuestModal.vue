@@ -33,14 +33,12 @@
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="type" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="type">
-              <j-tree-select
-                ref="treeSelect"
-                placeholder="请选择type"
-                v-model="model.type"
-                dict="quest_type,name,id"
-                pidValue="0"
-                >
-              </j-tree-select>
+              <j-dict-select-tag type="list" v-model="model.type" dictCode="quest_type" placeholder="请选择type" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="description" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="description">
+              <j-editor v-model="model.description" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">

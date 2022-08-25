@@ -30,14 +30,14 @@ export const columns: BasicColumn[] = [
     dataIndex: 'inputAmount'
    },
    {
-    title: 'Quest',
+    title: 'Quest Name',
     align:"center",
-    dataIndex: 'questRef'
+    dataIndex: 'questName'
    },
    {
-    title: 'Action Id',
+    title: 'Action Name',
     align:"center",
-    dataIndex: 'actionRef'
+    dataIndex: 'actionName'
    },
    {
     title: 'Status',
@@ -47,6 +47,18 @@ export const columns: BasicColumn[] = [
 ];
 //查询数据
 export const searchFormSchema: FormSchema[] = [
+	{
+      label: "Sender",
+      field: 'sender',
+      component: 'Input',
+      colProps: {span: 6},
+ 	},
+	{
+      label: "Quest Id",
+      field: 'questRef',
+      component: 'Input',
+      colProps: {span: 6},
+ 	},
 ];
 //表单数据
 export const formSchema: FormSchema[] = [
@@ -83,13 +95,23 @@ export const formSchema: FormSchema[] = [
     component: 'InputNumber',
   },
   {
-    label: 'Quest',
+    label: 'Quest Id',
     field: 'questRef',
+    component: 'Input',
+  },
+  {
+    label: 'Quest Name',
+    field: 'questName',
     component: 'Input',
   },
   {
     label: 'Action Id',
     field: 'actionRef',
+    component: 'Input',
+  },
+  {
+    label: 'Action Name',
+    field: 'actionName',
     component: 'Input',
   },
   {

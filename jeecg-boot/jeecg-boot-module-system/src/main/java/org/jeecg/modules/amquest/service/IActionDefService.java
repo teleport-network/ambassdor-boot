@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Description: quest def
  * @Author: jeecg-boot
- * @Date:   2022-08-11
+ * @Date:   2022-08-24
  * @Version: V1.0
  */
 public interface IActionDefService extends IService<ActionDef> {

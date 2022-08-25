@@ -4,6 +4,28 @@
     <div class="jeecg-basic-table-form-container">
       <a-form @keyup.enter.native="searchQuery" :model="queryParam" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-row :gutter="24">
+          <a-col :lg="8">
+            <a-form-item label="Sender">
+              <a-input placeholder="请输入Sender" v-model:value="queryParam.sender"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :lg="8">
+            <a-form-item label="Quest Id">
+              <a-input placeholder="请输入Quest Id" v-model:value="queryParam.questRef"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left; overflow: hidden" class="table-page-search-submitButtons">
+              <a-col :lg="6">
+                <a-button type="primary" preIcon="ant-design:search-outlined" @click="searchQuery">查询</a-button>
+                <a-button type="primary" preIcon="ant-design:reload-outlined" @click="searchReset" style="margin-left: 8px">重置</a-button>
+                <a @click="toggleSearchStatus = !toggleSearchStatus" style="margin-left: 8px">
+                  {{ toggleSearchStatus ? '收起' : '展开' }}
+                  <Icon :icon="toggleSearchStatus ? 'ant-design:up-outlined' : 'ant-design:down-outlined'" />
+                </a>
+              </a-col>
+            </span>
+          </a-col>
         </a-row>
       </a-form>
     </div>

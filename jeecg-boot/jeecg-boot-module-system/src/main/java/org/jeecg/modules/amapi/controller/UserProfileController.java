@@ -71,13 +71,22 @@ public class UserProfileController {
     public Result<?> getCurrentUserActions(@RequestParam(required = false, name = "questKey") String questKey) {
         LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         String email = sysUser.getEmail();
-        List<QuestAction> findAction;
+        List<AdminActivity> findActivity = null;
         if (StringUtils.isNotBlank(questKey)) {
-            findAction = questActionService.query().eq("email", email).eq("quest_key", questKey).list();
+            findActivity = adminActivityService.query()
+                    .eq("type", "point")
+                    .eq("sender", email)
+                    .eq("quest_ref", questKey)
+                    .list();
+            //findAction = questActionService.query().eq("email", email).eq("quest_key", questKey).list();
         } else {
-            findAction = questActionService.query().eq("email", email).list();
+            findActivity = adminActivityService.query()
+                    .eq("type", "point")
+                    .eq("sender", email)
+                    .list();
+            //findAction = questActionService.query().eq("email", email).list();
         }
-        return Result.OK("success", findAction);
+        return Result.OK("success", findActivity);
     }
 
     @GetMapping("/joined-quest")

@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * @Description: quest def
  * @Author: jeecg-boot
- * @Date:   2022-08-11
+ * @Date:   2022-08-24
  * @Version: V1.0
  */
 @Data
@@ -53,14 +53,19 @@ public class ActionDef implements Serializable {
 	@Excel(name = "type", width = 15)
     @ApiModelProperty(value = "type")
     private java.lang.String type;
-	/**worth*/
-	@Excel(name = "worth", width = 15)
-    @ApiModelProperty(value = "worth")
-    private java.lang.Integer worth;
+	/**Categories*/
+	@Excel(name = "Categories", width = 15)
+    @Dict(dicCode = "action_type")
+    @ApiModelProperty(value = "Categories")
+    private java.lang.String categories;
 	/**points rewards*/
 	@Excel(name = "points rewards", width = 15)
     @ApiModelProperty(value = "points rewards")
     private java.lang.Integer reward;
+	/**worth*/
+	@Excel(name = "worth", width = 15)
+    @ApiModelProperty(value = "worth")
+    private java.lang.Integer worth;
 	/**mandatory*/
 	@Excel(name = "mandatory", width = 15)
     @ApiModelProperty(value = "mandatory")

@@ -30,6 +30,12 @@ export const columns: BasicColumn[] = [
     dataIndex: 'type_dictText'
    },
    {
+    title: 'description',
+    align:"center",
+    dataIndex: 'description',
+    slots: { customRender: 'htmlSlot' },
+   },
+   {
     title: 'image',
     align:"center",
     dataIndex: 'image',
@@ -91,11 +97,15 @@ export const formSchema: FormSchema[] = [
   {
     label: 'type',
     field: 'type',
-    component: 'JTreeSelect',
+    component: 'JDictSelectTag',
     componentProps:{
-        dict:"quest_type,name,id",
-        pidValue:"0",
-    },
+        dictCode:"quest_type"
+     },
+  },
+  {
+    label: 'description',
+    field: 'description',
+    component: 'JEditor',
   },
   {
     label: 'image',
@@ -162,14 +172,19 @@ export const actionDefColumns: BasicColumn[] = [
     dataIndex: 'type'
    },
    {
-    title: 'worth',
+    title: 'Categories',
     align:"center",
-    dataIndex: 'worth'
+    dataIndex: 'categories_dictText'
    },
    {
     title: 'points rewards',
     align:"center",
     dataIndex: 'reward'
+   },
+   {
+    title: 'worth',
+    align:"center",
+    dataIndex: 'worth'
    },
    {
     title: 'mandatory',
@@ -262,13 +277,21 @@ export const actionDefFormSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    label: 'worth',
-    field: 'worth',
-    component: 'InputNumber',
+    label: 'Categories',
+    field: 'categories',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"action_type"
+     },
   },
   {
     label: 'points rewards',
     field: 'reward',
+    component: 'InputNumber',
+  },
+  {
+    label: 'worth',
+    field: 'worth',
     component: 'InputNumber',
   },
   {

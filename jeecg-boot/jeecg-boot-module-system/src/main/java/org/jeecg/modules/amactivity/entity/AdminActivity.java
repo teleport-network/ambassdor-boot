@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: admin activity
  * @Author: jeecg-boot
- * @Date:   2022-08-18
+ * @Date:   2022-08-24
  * @Version: V1.0
  */
 @Data
@@ -77,14 +77,22 @@ public class AdminActivity implements Serializable {
 	@Excel(name = "Amount", width = 15)
     @ApiModelProperty(value = "Amount")
     private java.lang.Double inputAmount;
-	/**Quest*/
-	@Excel(name = "Quest", width = 15)
-    @ApiModelProperty(value = "Quest")
+	/**Quest Id*/
+	@Excel(name = "Quest Id", width = 15)
+    @ApiModelProperty(value = "Quest Id")
     private java.lang.String questRef;
+	/**Quest Name*/
+	@Excel(name = "Quest Name", width = 15)
+    @ApiModelProperty(value = "Quest Name")
+    private java.lang.String questName;
 	/**Action Id*/
 	@Excel(name = "Action Id", width = 15)
     @ApiModelProperty(value = "Action Id")
     private java.lang.String actionRef;
+	/**Action Name*/
+	@Excel(name = "Action Name", width = 15)
+    @ApiModelProperty(value = "Action Name")
+    private java.lang.String actionName;
 	/**Status*/
 	@Excel(name = "Status", width = 15, dicCode = "activity_status")
 	@Dict(dicCode = "activity_status")

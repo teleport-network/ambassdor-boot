@@ -17,13 +17,18 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
-            <a-form-model-item label="worth" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="worth">
-              <a-input-number v-model="model.worth"placeholder="请输入worth" style="width: 100%" />
+            <a-form-model-item label="Categories" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="categories">
+              <j-dict-select-tag type="radio" v-model="model.categories" dictCode="action_type" placeholder="请选择Categories" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
             <a-form-model-item label="points rewards" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="reward">
               <a-input-number v-model="model.reward"placeholder="请输入points rewards" style="width: 100%" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="worth" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="worth">
+              <a-input-number v-model="model.worth"placeholder="请输入worth" style="width: 100%" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">

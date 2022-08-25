@@ -216,8 +216,10 @@ public class GleamActionSyncJob implements Job {
         activity.setInputAmount(actionDef.getReward().doubleValue());
         //1. point; 2. token; 3. nft
         activity.setType("point");
-        activity.setQuestRef(quest.getTitle());
-        activity.setActionRef(actionDef.getType());
+        activity.setQuestRef(quest.getQuestKey());
+        activity.setQuestName(quest.getTitle());
+        activity.setActionRef(actionDef.getId());
+        activity.setActionName(actionDef.getType());
         adminActivityService.saveOrUpdate(activity);
         log.info("Inserted Admin Activity:{}", activity);
     }

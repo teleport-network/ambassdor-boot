@@ -124,6 +124,7 @@ public class GleamSyncJob implements Job {
             toSave.setImage((String) images.get(0));
         }
         toSave.setSyncTime(new Date());
+        toSave.setDescription(prize.getString("description"));
         questService.save(toSave);
         // process action def
         JSONArray entryMethods = quest.getJSONArray("entry_methods");

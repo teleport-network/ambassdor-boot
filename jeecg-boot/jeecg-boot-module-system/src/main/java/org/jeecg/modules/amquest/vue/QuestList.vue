@@ -97,6 +97,7 @@
   import QuestModal from './modules/QuestModal'
   import { getAction } from '@/api/manage'
   import ActionDefList from './ActionDefList'
+  import {initDictOptions,filterMultiDictText} from '@/components/dict/JDictSelectUtil'
   import '@/assets/less/TableExpand.less'
 
   export default {
@@ -135,6 +136,12 @@
             title:'type',
             align:"center",
             dataIndex: 'type_dictText',
+          },
+          {
+            title:'description',
+            align:"center",
+            dataIndex: 'description',
+            scopedSlots: {customRender: 'htmlSlot'}
           },
           {
             title:'image',
@@ -184,6 +191,7 @@
           importExcelUrl: "amquest/quest/importExcel",
         },
         dictOptions:{
+         type:[],
         },
         /* 分页参数 */
         ipagination:{
@@ -262,7 +270,8 @@
         fieldList.push({type:'string',value:'title',text:'title',dictCode:''})
         fieldList.push({type:'string',value:'url',text:'quest link',dictCode:''})
         fieldList.push({type:'int',value:'rewards',text:'rewards points',dictCode:''})
-        fieldList.push({type:'string',value:'type',text:'type'})
+        fieldList.push({type:'string',value:'type',text:'type',dictCode:'quest_type'})
+        fieldList.push({type:'Text',value:'description',text:'description',dictCode:''})
         fieldList.push({type:'string',value:'image',text:'image',dictCode:''})
         fieldList.push({type:'datetime',value:'issueDate',text:'quest date'})
         fieldList.push({type:'datetime',value:'deadline',text:'queat duration'})
