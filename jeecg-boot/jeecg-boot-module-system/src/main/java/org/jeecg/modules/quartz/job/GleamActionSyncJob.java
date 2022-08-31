@@ -155,8 +155,11 @@ public class GleamActionSyncJob implements Job {
         String status = action.getString("status");
         JSONObject actionObj = action.getJSONObject("action");
         String actionType = actionObj.getString("type");
+        String actionTitle = actionObj.getString("config1");
+        String value = action.getString("value");
         String landingUrl = action.getString("landing_url");
-
+        JSONObject galleryItemObj = action.getJSONObject("gallery_item");
+        String galleryItem = galleryItemObj==null?"":galleryItemObj.toJSONString();
         QuestAction find = questActionService.getById(id);
         //status no changes and existing QuestAction
         if (find != null && status.equalsIgnoreCase(find.getStatus()) && this.parameter == null) {
@@ -176,6 +179,8 @@ public class GleamActionSyncJob implements Job {
         toSave.setEmail(email);
         toSave.setStatus(status);
         toSave.setActionType(actionType);
+        toSave.setValue(value);
+        toSave.setGalleryItem(galleryItem);
         toSave.setActionConfig(actionObj.toJSONString());
         toSave.setSyncTime(new Date());
         questActionService.saveOrUpdate(toSave);
@@ -214,12 +219,13 @@ public class GleamActionSyncJob implements Job {
         activity.setSender(toSave.getEmail());
         activity.setSendTime(new Date());
         activity.setInputAmount(actionDef.getReward().doubleValue());
-        //1. point; 2. token; 3. nft
+        //1. point; 2. token; 3. nft; 4. bonus
         activity.setType("point");
+        activity.setValue(toSave.getValue()!=null?toSave.getValue():toSave.getGalleryItem());
         activity.setQuestRef(quest.getQuestKey());
         activity.setQuestName(quest.getTitle());
         activity.setActionRef(actionDef.getId());
-        activity.setActionName(actionDef.getType());
+        activity.setActionName(actionTitle);
         adminActivityService.saveOrUpdate(activity);
         log.info("Inserted Admin Activity:{}", activity);
     }

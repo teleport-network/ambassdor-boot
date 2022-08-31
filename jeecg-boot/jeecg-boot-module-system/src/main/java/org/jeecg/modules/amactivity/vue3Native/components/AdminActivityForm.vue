@@ -23,6 +23,11 @@
           </a-form-item>
         </a-col>
         <a-col :span="24">
+          <a-form-item label="Value" v-bind="validateInfos.value">
+	          <a-textarea v-model:value="formData.value" rows="4" placeholder="请输入Value" :disabled="disabled"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
           <a-form-item label="Amount" v-bind="validateInfos.inputAmount">
 	          <a-input-number v-model:value="formData.inputAmount" placeholder="请输入Amount" style="width: 100%" :disabled="disabled"/>
           </a-form-item>
@@ -82,6 +87,8 @@
     sendTime: '',   
     id: '',
     type: '',   
+    id: '',
+    value: '',   
     id: '',
     inputAmount: undefined,
     id: '',

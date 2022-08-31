@@ -40,9 +40,9 @@ export const columns: BasicColumn[] = [
     dataIndex: 'actionType'
    },
    {
-    title: 'action config',
+    title: 'value',
     align:"center",
-    dataIndex: 'actionConfig'
+    dataIndex: 'value'
    },
    {
     title: 'last sync time',
@@ -89,6 +89,16 @@ export const formSchema: FormSchema[] = [
     label: 'action type',
     field: 'actionType',
     component: 'Input',
+  },
+  {
+    label: 'value',
+    field: 'value',
+    component: 'Input',
+  },
+  {
+    label: 'gallery item',
+    field: 'galleryItem',
+    component: 'InputTextArea',
   },
   {
     label: 'action config',

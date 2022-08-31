@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 /**
  * @Description: user action in quest
  * @Author: jeecg-boot
- * @Date:   2022-08-08
+ * @Date:   2022-08-31
  * @Version: V1.0
  */
 public interface IQuestActionService extends IService<QuestAction> {

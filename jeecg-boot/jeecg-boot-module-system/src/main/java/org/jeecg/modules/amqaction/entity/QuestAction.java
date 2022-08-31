@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: user action in quest
  * @Author: jeecg-boot
- * @Date:   2022-08-08
+ * @Date:   2022-08-31
  * @Version: V1.0
  */
 @Data
@@ -82,6 +82,14 @@ public class QuestAction implements Serializable {
 	@Excel(name = "action type", width = 15)
     @ApiModelProperty(value = "action type")
     private java.lang.String actionType;
+	/**value*/
+	@Excel(name = "value", width = 15)
+    @ApiModelProperty(value = "value")
+    private java.lang.String value;
+	/**gallery item*/
+	@Excel(name = "gallery item", width = 15)
+    @ApiModelProperty(value = "gallery item")
+    private java.lang.String galleryItem;
 	/**action config*/
 	@Excel(name = "action config", width = 15)
     @ApiModelProperty(value = "action config")

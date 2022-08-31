@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: admin activity
  * @Author: jeecg-boot
- * @Date:   2022-08-24
+ * @Date:   2022-08-31
  * @Version: V1.0
  */
 @Data
@@ -73,6 +73,10 @@ public class AdminActivity implements Serializable {
 	@Dict(dicCode = "activity_type")
     @ApiModelProperty(value = "Type")
     private java.lang.String type;
+	/**Value*/
+	@Excel(name = "Value", width = 15)
+    @ApiModelProperty(value = "Value")
+    private java.lang.String value;
 	/**Amount*/
 	@Excel(name = "Amount", width = 15)
     @ApiModelProperty(value = "Amount")

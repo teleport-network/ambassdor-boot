@@ -143,7 +143,7 @@ public class UserProfileController {
         AdminActivity activity = new AdminActivity();
         activity.setStatus("0");
         activity.setTitle("Token Rewards for Level-Up: " + user.getLevel());
-        //1. point; 2. token; 3. nft
+        //1. point; 2. token; 3. nft; 4. bonus
         activity.setType("token");
         activity.setSender(user.getEmail());
         activity.setSendTime(new Date());

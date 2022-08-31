@@ -38,6 +38,16 @@
           </a-form-item>
         </a-col>
         <a-col :span="24">
+          <a-form-item label="value" v-bind="validateInfos.value">
+            <a-input v-model:value="formData.value" placeholder="请输入value" :disabled="disabled"></a-input>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="gallery item" v-bind="validateInfos.galleryItem">
+	          <a-textarea v-model:value="formData.galleryItem" rows="4" placeholder="请输入gallery item" :disabled="disabled"/>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
           <a-form-item label="action config" v-bind="validateInfos.actionConfig">
 	          <a-textarea v-model:value="formData.actionConfig" rows="4" placeholder="请输入action config" :disabled="disabled"/>
           </a-form-item>
@@ -82,6 +92,10 @@
     actionId: undefined,
     id: '',
     actionType: '',   
+    id: '',
+    value: '',   
+    id: '',
+    galleryItem: '',   
     id: '',
     actionConfig: '',   
     id: '',

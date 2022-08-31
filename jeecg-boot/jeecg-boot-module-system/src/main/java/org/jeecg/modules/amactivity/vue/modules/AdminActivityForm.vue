@@ -24,6 +24,11 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
+            <a-form-model-item label="Value" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="value">
+              <a-textarea v-model="model.value" rows="4" placeholder="请输入Value" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
             <a-form-model-item label="Amount" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="inputAmount">
               <a-input-number v-model="model.inputAmount" placeholder="请输入Amount" style="width: 100%" />
             </a-form-model-item>

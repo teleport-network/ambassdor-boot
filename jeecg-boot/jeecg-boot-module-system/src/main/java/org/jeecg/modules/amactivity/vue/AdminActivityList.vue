@@ -163,6 +163,11 @@
             dataIndex: 'type_dictText'
           },
           {
+            title:'Value',
+            align:"center",
+            dataIndex: 'value'
+          },
+          {
             title:'Amount',
             align:"center",
             dataIndex: 'inputAmount'
@@ -220,6 +225,7 @@
         fieldList.push({type:'string',value:'sender',text:'Sender',dictCode:''})
         fieldList.push({type:'datetime',value:'sendTime',text:'Send time'})
         fieldList.push({type:'string',value:'type',text:'Type',dictCode:'activity_type'})
+        fieldList.push({type:'Text',value:'value',text:'Value',dictCode:''})
         fieldList.push({type:'double',value:'inputAmount',text:'Amount',dictCode:''})
         fieldList.push({type:'string',value:'questRef',text:'Quest Id',dictCode:''})
         fieldList.push({type:'string',value:'questName',text:'Quest Name',dictCode:''})

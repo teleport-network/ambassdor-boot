@@ -157,9 +157,9 @@
             dataIndex: 'actionType'
           },
           {
-            title:'action config',
+            title:'value',
             align:"center",
-            dataIndex: 'actionConfig'
+            dataIndex: 'value'
           },
           {
             title:'last sync time',
@@ -207,6 +207,8 @@
         fieldList.push({type:'string',value:'status',text:'status',dictCode:''})
         fieldList.push({type:'int',value:'actionId',text:'action id',dictCode:''})
         fieldList.push({type:'string',value:'actionType',text:'action type',dictCode:''})
+        fieldList.push({type:'Text',value:'value',text:'value',dictCode:''})
+        fieldList.push({type:'Text',value:'galleryItem',text:'gallery item',dictCode:''})
         fieldList.push({type:'Text',value:'actionConfig',text:'action config',dictCode:''})
         fieldList.push({type:'datetime',value:'syncTime',text:'last sync time'})
         this.superFieldList = fieldList

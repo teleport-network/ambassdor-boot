@@ -39,6 +39,16 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
+            <a-form-model-item label="value" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="value">
+              <a-input v-model="model.value" placeholder="请输入value"  ></a-input>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="gallery item" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="galleryItem">
+              <a-textarea v-model="model.galleryItem" rows="4" placeholder="请输入gallery item" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
             <a-form-model-item label="action config" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="actionConfig">
               <a-textarea v-model="model.actionConfig" rows="4" placeholder="请输入action config" />
             </a-form-model-item>

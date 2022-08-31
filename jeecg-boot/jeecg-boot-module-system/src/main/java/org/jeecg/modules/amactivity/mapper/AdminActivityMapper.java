@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * @Description: admin activity
  * @Author: jeecg-boot
- * @Date:   2022-08-24
+ * @Date:   2022-08-31
  * @Version: V1.0
  */
 public interface AdminActivityMapper extends BaseMapper<AdminActivity> {
