@@ -12,13 +12,12 @@ import org.jeecg.modules.amuser.service.IAmUserNftService;
 import org.jeecg.modules.amuser.service.IAmUserPointService;
 import org.jeecg.modules.amuser.service.IAmUserTokenService;
 import org.jeecg.modules.amuser.service.IAmbassadorUserService;
+import org.jeecg.modules.system.controller.LoginController;
+import org.jeecg.modules.system.model.AmUserLoginModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -48,6 +47,14 @@ public class AdministrationController {
 
     @Autowired
     private IAmUserNftService amUserNftService;
+
+    @Autowired
+    private LoginController loginController;
+
+    @RequestMapping(value="/am/user-login", method = RequestMethod.POST)
+    public Result<?> userLogin(@RequestBody AmUserLoginModel msg) {
+        return loginController.userLogin(msg);
+    }
 
     @PutMapping("/amactivity/adminActivity/approve")
     @Transactional

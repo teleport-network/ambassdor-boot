@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @Description: quest
  * @Author: jeecg-boot
- * @Date:   2022-08-24
+ * @Date:   2022-09-01
  * @Version: V1.0
  */
 @Data
@@ -53,6 +53,10 @@ public class Quest implements Serializable {
     @Excel(name = "quest key", width = 15)
     @ApiModelProperty(value = "quest key")
     private java.lang.String questKey;
+	/**active*/
+    @Excel(name = "active", width = 15)
+    @ApiModelProperty(value = "active")
+    private java.lang.String active;
 	/**title*/
     @Excel(name = "title", width = 15)
     @ApiModelProperty(value = "title")
@@ -70,6 +74,11 @@ public class Quest implements Serializable {
     @Dict(dicCode = "quest_type")
     @ApiModelProperty(value = "type")
     private java.lang.String type;
+	/**assign to*/
+    @Excel(name = "assign to", width = 15, dicCode = "user_role")
+    @Dict(dicCode = "user_role")
+    @ApiModelProperty(value = "assign to")
+    private java.lang.String assignTo;
 	/**description*/
     @Excel(name = "description", width = 15)
     @ApiModelProperty(value = "description")

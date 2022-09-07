@@ -17,6 +17,11 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
+            <a-form-model-item label="active" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="active">
+              <j-switch v-model="model.active"  ></j-switch>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
             <a-form-model-item label="title" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="title">
               <a-input v-model="model.title" placeholder="请输入title" ></a-input>
             </a-form-model-item>
@@ -34,6 +39,11 @@
           <a-col :span="24">
             <a-form-model-item label="type" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="type">
               <j-dict-select-tag type="list" v-model="model.type" dictCode="quest_type" placeholder="请选择type" />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-model-item label="assign to" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="assignTo">
+              <j-dict-select-tag type="list" v-model="model.assignTo" dictCode="user_role" placeholder="请选择assign to" />
             </a-form-model-item>
           </a-col>
           <a-col :span="24">

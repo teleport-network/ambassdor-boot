@@ -243,6 +243,7 @@
         },
         dictOptions:{
          type:[],
+         assignTo:[],
         }
       }
     },

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * @Description: quest def
  * @Author: jeecg-boot
- * @Date:   2022-08-24
+ * @Date:   2022-09-01
  * @Version: V1.0
  */
 public interface ActionDefMapper extends BaseMapper<ActionDef> {

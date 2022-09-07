@@ -4,6 +4,26 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="type">
+              <j-dict-select-tag placeholder="请选择type" v-model="queryParam.type" dictCode="quest_type"/>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="assign to">
+              <j-dict-select-tag placeholder="请选择assign to" v-model="queryParam.assignTo" dictCode="user_role"/>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+              <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+              <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+              <a @click="handleToggleSearch" style="margin-left: 8px">
+                {{ toggleSearchStatus ? '收起' : '展开' }}
+                <a-icon :type="toggleSearchStatus ? 'up' : 'down'"/>
+              </a>
+            </span>
+          </a-col>
         </a-row>
       </a-form>
     </div>
@@ -118,6 +138,12 @@
             dataIndex: 'questKey'
           },
           {
+            title:'active',
+            align:"center",
+            dataIndex: 'active',
+            customRender: (text) => (!text ? "" : (text == "Y" ? "是" : "否"))
+          },
+          {
             title:'title',
             align:"center",
             dataIndex: 'title'
@@ -135,7 +161,14 @@
           {
             title:'type',
             align:"center",
+            sorter: true,
             dataIndex: 'type_dictText',
+          },
+          {
+            title:'assign to',
+            align:"center",
+            sorter: true,
+            dataIndex: 'assignTo_dictText',
           },
           {
             title:'description',
@@ -152,21 +185,25 @@
           {
             title:'quest date',
             align:"center",
+            sorter: true,
             dataIndex: 'issueDate'
           },
           {
             title:'queat duration',
             align:"center",
+            sorter: true,
             dataIndex: 'deadline'
           },
           {
             title:'last sync time',
             align:"center",
+            sorter: true,
             dataIndex: 'syncTime'
           },
           {
             title:'create time in gleam',
             align:"center",
+            sorter: true,
             dataIndex: 'gleamCreateAt'
           },
           {
@@ -192,6 +229,7 @@
         },
         dictOptions:{
          type:[],
+         assignTo:[],
         },
         /* 分页参数 */
         ipagination:{
@@ -267,10 +305,12 @@
       getSuperFieldList(){
         let fieldList=[];
         fieldList.push({type:'string',value:'questKey',text:'quest key',dictCode:''})
+        fieldList.push({type:'switch',value:'active',text:'active'})
         fieldList.push({type:'string',value:'title',text:'title',dictCode:''})
         fieldList.push({type:'string',value:'url',text:'quest link',dictCode:''})
         fieldList.push({type:'int',value:'rewards',text:'rewards points',dictCode:''})
         fieldList.push({type:'string',value:'type',text:'type',dictCode:'quest_type'})
+        fieldList.push({type:'string',value:'assignTo',text:'assign to',dictCode:'user_role'})
         fieldList.push({type:'Text',value:'description',text:'description',dictCode:''})
         fieldList.push({type:'string',value:'image',text:'image',dictCode:''})
         fieldList.push({type:'datetime',value:'issueDate',text:'quest date'})

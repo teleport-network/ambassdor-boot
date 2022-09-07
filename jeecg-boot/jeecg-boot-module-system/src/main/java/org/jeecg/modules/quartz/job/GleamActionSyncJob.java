@@ -61,13 +61,20 @@ public class GleamActionSyncJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         if (StringUtils.isNotBlank(this.parameter)) {
             Quest find = questService.query().eq("quest_key", this.parameter).one();
-            processInQuest(find.getQuestKey());
+            if ("Y".equals(find.getActive())) {
+                processInQuest(find.getQuestKey());
+            } else {
+                log.info("Inactive Quest:{}, please turn on the quest first.");
+                throw new JobExecutionException("Inactive Quest, please turn on the quest first.");
+            }
             return;
         }
         List<Quest> allQuests = questService.list();
         for (Quest q : allQuests) {
             try {
-                processInQuest(q.getQuestKey());
+                if ("Y".equals(q.getActive())) {
+                    processInQuest(q.getQuestKey());
+                }
             } catch (Exception e) {
                 log.error("Exception:", e);
                 log.info("Skip to process quest: {}", q.getQuestKey());

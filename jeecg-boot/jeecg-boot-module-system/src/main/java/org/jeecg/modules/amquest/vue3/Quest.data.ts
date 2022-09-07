@@ -10,6 +10,14 @@ export const columns: BasicColumn[] = [
     dataIndex: 'questKey'
    },
    {
+    title: 'active',
+    align:"center",
+    dataIndex: 'active',
+    customRender:({text}) => {
+       return  render.renderSwitch(text, [{text:'是',value:'Y'},{text:'否',value:'N'}])
+     },
+   },
+   {
     title: 'title',
     align:"center",
     dataIndex: 'title'
@@ -27,7 +35,14 @@ export const columns: BasicColumn[] = [
    {
     title: 'type',
     align:"center",
+    sorter: true,
     dataIndex: 'type_dictText'
+   },
+   {
+    title: 'assign to',
+    align:"center",
+    sorter: true,
+    dataIndex: 'assignTo_dictText'
    },
    {
     title: 'description',
@@ -44,21 +59,25 @@ export const columns: BasicColumn[] = [
    {
     title: 'quest date',
     align:"center",
+    sorter: true,
     dataIndex: 'issueDate'
    },
    {
     title: 'queat duration',
     align:"center",
+    sorter: true,
     dataIndex: 'deadline'
    },
    {
     title: 'last sync time',
     align:"center",
+    sorter: true,
     dataIndex: 'syncTime'
    },
    {
     title: 'create time in gleam',
     align:"center",
+    sorter: true,
     dataIndex: 'gleamCreateAt'
    },
    {
@@ -69,6 +88,24 @@ export const columns: BasicColumn[] = [
 ];
 //查询数据
 export const searchFormSchema: FormSchema[] = [
+	{
+      label: "type",
+      field: "type",
+      component: 'JDictSelectTag',
+      componentProps:{
+          dictCode:"quest_type"
+      },
+      colProps: {span: 6},
+ 	},
+	{
+      label: "assign to",
+      field: "assignTo",
+      component: 'JDictSelectTag',
+      componentProps:{
+          dictCode:"user_role"
+      },
+      colProps: {span: 6},
+ 	},
 ];
 
 //表单数据
@@ -78,6 +115,13 @@ export const formSchema: FormSchema[] = [
     field: 'questKey',
     component: 'Input',
     dynamicDisabled:true,
+  },
+  {
+    label: 'active',
+    field: 'active',
+     component: 'JSwitch',
+     componentProps:{
+     },
   },
   {
     label: 'title',
@@ -100,6 +144,14 @@ export const formSchema: FormSchema[] = [
     component: 'JDictSelectTag',
     componentProps:{
         dictCode:"quest_type"
+     },
+  },
+  {
+    label: 'assign to',
+    field: 'assignTo',
+    component: 'JDictSelectTag',
+    componentProps:{
+        dictCode:"user_role"
      },
   },
   {
