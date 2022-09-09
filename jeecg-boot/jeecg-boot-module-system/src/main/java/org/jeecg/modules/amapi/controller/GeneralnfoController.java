@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
+import org.jeecg.modules.amnft.controller.NftController;
+import org.jeecg.modules.amnft.entity.Nft;
 import org.jeecg.modules.amquest.controller.QuestController;
 import org.jeecg.modules.amquest.entity.Quest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class GeneralnfoController {
     @Autowired
     private QuestController questController;
 
+    @Autowired
+    private NftController nftController;
+
 
     @ApiOperation(value="quest-分页列表查询", notes="quest-分页列表查询")
     @GetMapping(value = "/quest/list")
@@ -35,5 +40,15 @@ public class GeneralnfoController {
                                               @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
                                               HttpServletRequest req) {
         return questController.queryPageList(quest, pageNo, pageSize, req);
+    }
+
+
+    @ApiOperation(value="nft-分页列表查询", notes="nft-分页列表查询")
+    @GetMapping(value = "/nft/list")
+    public Result<IPage<Nft>> queryPageList(Nft nft,
+                                            @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
+                                            @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
+                                            HttpServletRequest req) {
+        return nftController.queryPageList(nft, pageNo, pageSize, req);
     }
 }
