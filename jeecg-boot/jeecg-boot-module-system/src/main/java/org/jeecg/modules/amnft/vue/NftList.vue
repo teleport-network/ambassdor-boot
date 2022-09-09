@@ -8,7 +8,7 @@
       </a-form>
     </div>
     <!-- 查询区域-END -->
-    
+
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
@@ -18,6 +18,12 @@
       </a-upload>
       <!-- 高级查询区域 -->
       <j-super-query :fieldList="superFieldList" ref="superQueryModal" @handleSuperQuery="handleSuperQuery"></j-super-query>
+      <a-dropdown v-if="selectedRowKeys.length > 0">
+        <a-menu slot="overlay">
+          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
+        </a-menu>
+        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
+      </a-dropdown>
     </div>
 
     <!-- table区域-begin -->
@@ -30,16 +36,15 @@
       <a-table
         ref="table"
         size="middle"
+        :scroll="{x:true}"
         bordered
         rowKey="id"
-        class="j-table-force-nowrap"
-        :scroll="{x:true}"
         :columns="columns"
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange, type:'radio'}"
-        :customRow="clickThenSelect"
+        :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+        class="j-table-force-nowrap"
         @change="handleTableChange">
 
         <template slot="htmlSlot" slot-scope="text">
@@ -70,6 +75,9 @@
             <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
             <a-menu slot="overlay">
               <a-menu-item>
+                <a @click="handleDetail(record)">详情</a>
+              </a-menu-item>
+              <a-menu-item>
                 <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
                   <a>删除</a>
                 </a-popconfirm>
@@ -81,34 +89,21 @@
       </a-table>
     </div>
 
-    <a-tabs defaultActiveKey="1">
-      <a-tab-pane tab="mint history" key="1" >
-        <MintHistoryList :mainId="mintHistoryMainId" />
-      </a-tab-pane>
-      <a-tab-pane tab="delivered history" key="2" forceRender>
-        <DeliveredHistoryList :mainId="deliveredHistoryMainId" />
-      </a-tab-pane>
-    </a-tabs>
-
     <nft-modal ref="modalForm" @ok="modalFormOk"></nft-modal>
   </a-card>
 </template>
 
 <script>
 
+  import '@/assets/less/TableExpand.less'
+  import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import NftModal from './modules/NftModal'
-  import { getAction } from '@/api/manage'
-  import MintHistoryList from './MintHistoryList'
-  import DeliveredHistoryList from './DeliveredHistoryList'
-  import '@/assets/less/TableExpand.less'
 
   export default {
-    name: "NftList",
-    mixins:[JeecgListMixin],
+    name: 'NftList',
+    mixins:[JeecgListMixin, mixinDevice],
     components: {
-      MintHistoryList,
-      DeliveredHistoryList,
       NftModal
     },
     data () {
@@ -117,49 +112,49 @@
         // 表头
         columns: [
           {
-            title:'image',
+            title: '#',
+            dataIndex: '',
+            key:'rowIndex',
+            width:60,
             align:"center",
-            dataIndex: 'image'
+            customRender:function (t,r,index) {
+              return parseInt(index)+1;
+            }
           },
           {
-            title:'name',
+            title:'Name',
             align:"center",
             dataIndex: 'name'
           },
           {
-            title:'type',
-            align:"center",
-            dataIndex: 'type'
-          },
-          {
-            title:'desc',
-            align:"center",
-            dataIndex: 'description'
-          },
-          {
-            title:'address',
-            align:"center",
-            dataIndex: 'address'
-          },
-          {
-            title:'total',
+            title:'Total',
             align:"center",
             dataIndex: 'total'
           },
           {
-            title:'inventory',
+            title:'TokenId Start',
+            align:"center",
+            dataIndex: 'startIndex'
+          },
+          {
+            title:'Next TokenId',
+            align:"center",
+            dataIndex: 'nextIndex'
+          },
+          {
+            title:'TokenId End',
+            align:"center",
+            dataIndex: 'endIndex'
+          },
+          {
+            title:'Inventory',
             align:"center",
             dataIndex: 'inventory'
           },
           {
-            title:'delivered quantity',
+            title:'Delivered Quantity',
             align:"center",
             dataIndex: 'delivered'
-          },
-          {
-            title:'reuest quantity',
-            align:"center",
-            dataIndex: 'txRequestNum'
           },
           {
             title: '操作',
@@ -167,7 +162,7 @@
             align:"center",
             fixed:"right",
             width:147,
-            scopedSlots: { customRender: 'action' },
+            scopedSlots: { customRender: 'action' }
           }
         ],
         url: {
@@ -176,98 +171,41 @@
           deleteBatch: "/amnft/nft/deleteBatch",
           exportXlsUrl: "/amnft/nft/exportXls",
           importExcelUrl: "amnft/nft/importExcel",
+          
         },
-        dictOptions:{
-        },
-        /* 分页参数 */
-        ipagination:{
-          current: 1,
-          pageSize: 5,
-          pageSizeOptions: ['5', '10', '50'],
-          showTotal: (total, range) => {
-            return range[0] + "-" + range[1] + " 共" + total + "条"
-          },
-          showQuickJumper: true,
-          showSizeChanger: true,
-          total: 0
-        },
-        selectedMainId:'',
+        dictOptions:{},
         superFieldList:[],
-        mintHistoryMainId: '',
-        deliveredHistoryMainId: '',
       }
     },
     created() {
-      this.getSuperFieldList();
+    this.getSuperFieldList();
     },
     computed: {
       importExcelUrl: function(){
         return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
-      }
+      },
     },
     methods: {
       initDictConfig(){
       },
-      clickThenSelect(record) {
-        return {
-          on: {
-            click: () => {
-              this.onSelectChange(record.id.split(","), [record]);
-            }
-          }
-        }
-      },
-      onClearSelected() {
-        this.selectedRowKeys = [];
-        this.selectionRows = [];
-        this.selectedMainId=''
-      },
-      onSelectChange(selectedRowKeys, selectionRows) {
-        this.selectedMainId=selectedRowKeys[0]
-        this.selectedRowKeys = selectedRowKeys;
-        this.selectionRows = selectionRows;
-        this.mintHistoryMainId = selectionRows[0]['id']
-        this.deliveredHistoryMainId = selectionRows[0]['id']
-      },
-      loadData(arg) {
-        if(!this.url.list){
-          this.$message.error("请设置url.list属性!")
-          return
-        }
-        //加载数据 若传入参数1则加载第一页的内容
-        if (arg === 1) {
-          this.ipagination.current = 1;
-        }
-        this.onClearSelected()
-        var params = this.getQueryParams();//查询条件
-        this.loading = true;
-        getAction(this.url.list, params).then((res) => {
-          if (res.success) {
-            this.dataSource = res.result.records;
-            this.ipagination.total = res.result.total;
-          }
-          if(res.code===510){
-            this.$message.warning(res.message)
-          }
-          this.loading = false;
-        })
-      },
       getSuperFieldList(){
         let fieldList=[];
-        fieldList.push({type:'string',value:'image',text:'image',dictCode:''})
-        fieldList.push({type:'string',value:'name',text:'name',dictCode:''})
-        fieldList.push({type:'string',value:'type',text:'type',dictCode:''})
-        fieldList.push({type:'Text',value:'description',text:'desc',dictCode:''})
-        fieldList.push({type:'string',value:'address',text:'address',dictCode:''})
-        fieldList.push({type:'int',value:'total',text:'total',dictCode:''})
-        fieldList.push({type:'int',value:'inventory',text:'inventory',dictCode:''})
-        fieldList.push({type:'int',value:'delivered',text:'delivered quantity',dictCode:''})
-        fieldList.push({type:'int',value:'txRequestNum',text:'reuest quantity',dictCode:''})
+        fieldList.push({type:'string',value:'name',text:'Name'})
+        fieldList.push({type:'int',value:'total',text:'Total'})
+        fieldList.push({type:'int',value:'startIndex',text:'TokenId Start'})
+        fieldList.push({type:'int',value:'nextIndex',text:'Next TokenId'})
+        fieldList.push({type:'int',value:'endIndex',text:'TokenId End'})
+        fieldList.push({type:'int',value:'inventory',text:'Inventory'})
+        fieldList.push({type:'int',value:'delivered',text:'Delivered Quantity'})
+        fieldList.push({type:'string',value:'type',text:'Type'})
+        fieldList.push({type:'string',value:'contractAddress',text:'Contract Address'})
+        fieldList.push({type:'string',value:'image',text:'Image'})
+        fieldList.push({type:'string',value:'description',text:'Desc'})
         this.superFieldList = fieldList
       }
     }
   }
 </script>
 <style scoped>
-  @import '~@assets/less/common.less'
+  @import '~@assets/less/common.less';
 </style>

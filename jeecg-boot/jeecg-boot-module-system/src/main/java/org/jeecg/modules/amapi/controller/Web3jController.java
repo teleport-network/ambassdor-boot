@@ -1,13 +1,20 @@
 package org.jeecg.modules.amapi.controller;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 import lombok.extern.slf4j.Slf4j;
+import org.web3j.contracts.token.ERC20BasicInterface;
+import org.web3j.contracts.token.ERC20Interface;
+import org.web3j.crypto.Credentials;
+import org.web3j.generated.contracts.TeleportUniverse;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.tx.gas.DefaultGasProvider;
 
 @Slf4j
 public class Web3jController {
@@ -31,8 +38,18 @@ public class Web3jController {
             log.info("Block number: " + blockNumber.getBlockNumber());
             log.info("Gas price: " + gasPrice.getGasPrice());
 
+            TeleportUniverse teleportUniverse = TeleportUniverse.load("0xeE5317B83A7d06e379A0a4D29c23256A5f77d0ce", web3, Credentials.create("b01843c1f5b8242689442dbb5c348dbc2cbc9eecbe614158b08ec810255aeb5c"), new DefaultGasProvider());
+            BigInteger tokenId = BigInteger.valueOf(11);
+            //tokenId.
+            TransactionReceipt receipt = teleportUniverse.safeTransferFrom("", "", tokenId).send();
+            //receipt.
+            if (teleportUniverse.isValid()) {
+                BigInteger maxSupply = teleportUniverse.maxSupply().send();
+                log.info("maxSupply: " + maxSupply);
+            }
 
-        } catch(IOException ex) {
+
+        } catch(Exception ex) {
             throw new RuntimeException("Error whilst sending json-rpc requests", ex);
         }
     }

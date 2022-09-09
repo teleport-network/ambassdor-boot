@@ -147,7 +147,7 @@ public class ShiroConfig {
 
         //ambassador business
         filterChainDefinitionMap.put("/amlevel/**/list", "anon");
-
+        filterChainDefinitionMap.put("/ambassador/quest/list", "anon");
 
         //性能监控  TODO 存在安全漏洞泄露TOEKN（durid连接池也有）
         filterChainDefinitionMap.put("/actuator/**", "anon");

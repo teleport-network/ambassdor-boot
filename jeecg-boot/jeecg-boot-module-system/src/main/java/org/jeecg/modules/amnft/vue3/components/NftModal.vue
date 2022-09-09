@@ -56,7 +56,7 @@
 
 <style lang="less" scoped>
 	/** 时间和数字输入框样式 */
-    :deep(.ant-input-number){
+  :deep(.ant-input-number){
 		width: 100%
 	}
 
