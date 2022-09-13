@@ -14,6 +14,8 @@ import org.jeecg.modules.amlevel.entity.AmbassadorLevel;
 import org.jeecg.modules.amlevel.entity.ContributorLevel;
 import org.jeecg.modules.amlevel.service.IAmbassadorLevelService;
 import org.jeecg.modules.amlevel.service.IContributorLevelService;
+import org.jeecg.modules.amnft.entity.Nft;
+import org.jeecg.modules.amnft.service.INftService;
 import org.jeecg.modules.amqaction.entity.QuestAction;
 import org.jeecg.modules.amqaction.service.IQuestActionService;
 import org.jeecg.modules.amquest.entity.ActionDef;
@@ -23,6 +25,7 @@ import org.jeecg.modules.amquest.service.IQuestService;
 import org.jeecg.modules.amuser.entity.AmbassadorUser;
 import org.jeecg.modules.amuser.service.IAmbassadorUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -56,6 +59,9 @@ public class UserProfileController {
 
     @Autowired
     private IAdminActivityService adminActivityService;
+
+    @Autowired
+    private INftService nftService;
 
     @GetMapping
     public Result<?> getCurrentUser() {
@@ -104,6 +110,7 @@ public class UserProfileController {
     }
 
     @PostMapping("/collect-point")
+    @Transactional
     public Result<?> collectPoints() {
         LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         String email = sysUser.getEmail();
@@ -147,13 +154,34 @@ public class UserProfileController {
         activity.setType("token");
         activity.setSender(user.getEmail());
         activity.setSendTime(new Date());
+        activity.setValue(tokenReward.toString());
         activity.setInputAmount(tokenReward.doubleValue());
         adminActivityService.saveOrUpdate(activity);
-        log.info("Inserted Admin Activity:{}", activity);
+        log.info("Inserted Token Rewards Activity:{}", activity);
     }
 
     private void processLevelUpNft(AmbassadorUser user) {
+        Nft rewardNft = nftService.query().eq("name", user.getLevel()).one();
+        JSONObject value = new JSONObject();
+        value.put("nftName", rewardNft.getName());
+        value.put("tokenId", rewardNft.getNextIndex());
 
+        AdminActivity activity = new AdminActivity();
+        activity.setStatus("0");
+        activity.setTitle("NFT Rewards for Level-Up: " + user.getLevel());
+        //1. point; 2. token; 3. nft; 4. bonus
+        activity.setType("nft");
+        activity.setSender(user.getEmail());
+        activity.setSendTime(new Date());
+        activity.setValue(value.toJSONString());
+        activity.setInputAmount(1.0);
+        adminActivityService.saveOrUpdate(activity);
+        log.info("Inserted NFT Rewards Activity:{}", activity);
+        // update nft inventory
+        rewardNft.setNextIndex(rewardNft.getNextIndex()+1);
+        rewardNft.setInventory(rewardNft.getInventory()-1);
+        rewardNft.setDelivered(rewardNft.getDelivered()+1);
+        nftService.updateById(rewardNft);
     }
 
     private String levelCompute(AmbassadorUser user) {

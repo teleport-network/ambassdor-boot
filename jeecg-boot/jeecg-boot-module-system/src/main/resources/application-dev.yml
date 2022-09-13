@@ -332,3 +332,10 @@ third-app:
       # appSecret
       client-secret: ??
       agent-id: ??
+ambassador:
+  rpc: https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161
+  chainId: 4
+  nft:
+    contract: "0xeE5317B83A7d06e379A0a4D29c23256A5f77d0ce"
+    owner: "0x8920df9c52b63d81efb8edea8173481b73a6d66c"
+    pk: "b01843c1f5b8242689442dbb5c348dbc2cbc9eecbe614158b08ec810255aeb5c"
