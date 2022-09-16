@@ -198,6 +198,7 @@
         fieldList.push({type:'int',value:'inventory',text:'Inventory'})
         fieldList.push({type:'int',value:'delivered',text:'Delivered Quantity'})
         fieldList.push({type:'string',value:'type',text:'Type'})
+        fieldList.push({type:'string',value:'ipfs',text:'Ipfs Url',dictCode:''})
         fieldList.push({type:'string',value:'contractAddress',text:'Contract Address'})
         fieldList.push({type:'string',value:'image',text:'Image'})
         fieldList.push({type:'string',value:'description',text:'Desc'})

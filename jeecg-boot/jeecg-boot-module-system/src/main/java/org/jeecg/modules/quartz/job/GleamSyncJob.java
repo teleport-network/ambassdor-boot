@@ -15,6 +15,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriBuilder;
 
 import java.util.Date;
@@ -33,6 +34,7 @@ public class GleamSyncJob implements Job {
     @Autowired
     private IQuestActionService questActionService;
     @Override
+    @Transactional
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         JSONObject variablesForFirstCall = new JSONObject();
         variablesForFirstCall.put("per_page", 500);

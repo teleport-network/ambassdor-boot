@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: nft
  * @Author: jeecg-boot
- * @Date:   2022-09-09
+ * @Date:   2022-09-16
  * @Version: V1.0
  */
 @Data
@@ -86,6 +86,10 @@ public class Nft implements Serializable {
 	@Excel(name = "Type", width = 15)
     @ApiModelProperty(value = "Type")
     private java.lang.String type;
+	/**Ipfs Url*/
+	@Excel(name = "Ipfs Url", width = 15)
+    @ApiModelProperty(value = "Ipfs Url")
+    private java.lang.String ipfs;
 	/**Contract Address*/
 	@Excel(name = "Contract Address", width = 15)
     @ApiModelProperty(value = "Contract Address")

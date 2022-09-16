@@ -43,6 +43,11 @@
           </a-form-item>
         </a-col>
         <a-col :span="24">
+          <a-form-item label="Ipfs Url" v-bind="validateInfos.ipfs">
+            <a-input v-model:value="formData.ipfs" placeholder="请输入Ipfs Url" :disabled="disabled"></a-input>
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
           <a-form-item label="Contract Address" v-bind="validateInfos.contractAddress">
             <a-input v-model:value="formData.contractAddress" placeholder="请输入Contract Address" :disabled="disabled"></a-input>
           </a-form-item>
@@ -95,6 +100,8 @@
     delivered: undefined,
     id: '',
     type: '',   
+    id: '',
+    ipfs: '',   
     id: '',
     contractAddress: '',   
     id: '',

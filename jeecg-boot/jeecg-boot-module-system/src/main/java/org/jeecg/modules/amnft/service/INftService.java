@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 /**
  * @Description: nft
  * @Author: jeecg-boot
- * @Date:   2022-09-09
+ * @Date:   2022-09-16
  * @Version: V1.0
  */
 public interface INftService extends IService<Nft> {

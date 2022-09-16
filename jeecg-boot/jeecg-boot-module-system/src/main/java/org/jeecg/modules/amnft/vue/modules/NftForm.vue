@@ -44,6 +44,11 @@
             </a-form-model-item>
           </a-col>
           <a-col :span="24">
+            <a-form-model-item label="Ipfs Url" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="ipfs">
+              <a-input v-model="model.ipfs" placeholder="请输入Ipfs Url"  ></a-input>
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="24">
             <a-form-model-item label="Contract Address" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="contractAddress">
               <a-input v-model="model.contractAddress" placeholder="请输入Contract Address"  ></a-input>
             </a-form-model-item>

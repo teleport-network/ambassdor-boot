@@ -130,6 +130,11 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
+    label: 'Ipfs Url',
+    field: 'ipfs',
+    component: 'Input',
+  },
+  {
     label: 'Contract Address',
     field: 'contractAddress',
     component: 'Input',
